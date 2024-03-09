@@ -52,6 +52,13 @@
                 <input placeholder="Password" type="Password" class="textInput">
                 </div>
 
+                <div class="textInputWrapper">
+                <select name="UserType" id="usertype">
+                    <option value="">select usertype</option>
+                    <option value="">Admin</option>
+                    <option value="">Other</option>
+                </select>
+                </div>
                 <br>
                 <div class="button">
                 <input type="submit" value="submit" name="submit" id="submit">
