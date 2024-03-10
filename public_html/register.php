@@ -1,83 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>CIMS management system</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAMERA INFORMATION MANAGEMENT SYSTEM</title>
-
-    <!-- font font-awesome cdn -->
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <!-- scripts jquery -->
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    
-    <!-- scripts bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q     +zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-
-    <!-- bootstrap cdn -->
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-    <!-- custom script -->
-    <link rel="stylesheet" href="css/register.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container-fluid g-0">
-    
+        <!-- Navigation -->
+        <?php include_once("./pages/header.php"); ?>
 
-
-
-    <div class="con">
-    <div class="form">
-        <h1>Register</h1>
-        <form id="login">
-
+<div class="container">
+        <div class="card mx-auto mt-5" style="width: 30rem;">
+            <div class="card-body">
+                <h5 class="card-title">Register</h5>
                 <br>
+            <form id="register_form" onsubmit="return false" autocomplete="off" >
+            <div class="mb-3 row">  
+                <div class="col-md-6">
+                    <label for="username">Full name</label>
+                    <input type="text" name="username" class="form-control" id="username">
+                    <small id="u_error" class="form-text"></small>
+                </div>
+                <div class="col-md-6">
+                    <label for="email">Email address</label>
+                    <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
+                    <small id="e_error" class="form-text text-muted"></small>
+                </div>
+
+            </div>
+            <div class="mb-3 row">
+                <div class="col-md-6">
+                    <label for="password">Password</label>
+                    <input type="password" name="password1" class="form-control" id="password1">
+                    <small id="p1_error" class="form-text text-muted"></small>
+                </div>
+                <div class="col-md-6">
+                <label for="password">Conform Password</label>
+                    <input type="password" name="password2" class="form-control" id="password2">
+                    <small id="p2_error" class="form-text text-muted"></small>
+                </div>
+            </div>
+
+                <div class="form-group">
+                    <label for="usertype">Usertype</label>
+                    <select name="usertype" id="usertype" class="form-control">
+                        <option value="">Choose Usertype</option>
+                        <option value="1">Admin</option>
+                        <option value="0">Other</option>
+                    </select>
+                    <small id="t_error" class="form-text text-muted"></small>
+                </div>
+                <small id="all_error" class="form-text text-muted"></small>
                 <br>
-        <div class="wrapper">
-                <div class="textInputWrapper">
-                <input placeholder="UserName" type="text" class="textInput">
-                </div>
-                <div class="textInputWrapper">
-                <input placeholder="UserName" type="text" class="textInput">
-                </div>
+                <button class="btn btn-primary" name="user_register" type="submit">Register </button>
+
+                <span><a href="index.php">Login</a></span>
+            </form>
+            </div>
         </div>
-                <br>
-
-        <div class="wrapper">
-                <div class="textInputWrapper">
-                <input placeholder="Password" type="Password" class="textInput">
-                </div>
-
-                <div class="textInputWrapper">
-                <input placeholder="Password" type="Password" class="textInput">
-                </div>
-        </div>
-
-                <br>
-                <div class="button">
-                <input type="submit" value="submit" name="submit" id="submit">
-                </div>
-                <div class="go-r-f">
-                <a href="#">Registration!</a>
-                </div>
-                <div class="go-r-f">
-                <a href="#">forget Password?</a>
-                </div>
-
-        </form>
-    </div>
-    </div>
-    </div>
-
+</div>
 </body>
-<script src="js/main.js" ></script>
+<script src="./js/main.js"></script>
 </html>

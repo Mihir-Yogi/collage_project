@@ -2,6 +2,7 @@
 class User{
     private $con;
 
+    // database
     function __construct()
     {
         include_once("../database/db.php");
@@ -22,7 +23,8 @@ class User{
             return 0;
         }
     }
-
+    
+    // here creating a User Account 
     public function createUserAccount($username,$email,$password,$usertype){
 
             if($this->emailExists($email)){
@@ -44,6 +46,8 @@ class User{
             }
         }
     }
+
+    // here User login 
     public function userLogin($email,$password){
         $pre_stmt = $this->con->prepare("SELECT id,username,password,last_login FROM user WHERE email = ?");
         $pre_stmt->bind_param("s",$email);
@@ -77,8 +81,8 @@ class User{
 }
 
 // $user = new User();
-// echo $user->createUserAccount("Test3","test3@gmail.com","1234567890","Admin");
+// echo $user->createUserAccount("Test4","test4@gmail.com","1234567890","Admin");
 
 // echo $user->userLogin("test3@gmail.com","1234567890");
-// echo $_SESSION["username"];
+
 ?>
