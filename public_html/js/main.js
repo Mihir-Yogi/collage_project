@@ -83,13 +83,13 @@ $(document).ready(function(){
                     }else if(data == "SOME_ERROR"){
                         alert("Something Wrong!");
                     }else{
-                        window.location.href = encodeURI(DOMAIN+"/index.php?msg=You_are_register_now_you_an_login!");
+                        window.location.href = encodeURI(DOMAIN+"/index.php?msg=You are register now you can login!");
                     }
                 }
             })  
         }else{
             pass2.addClass("border-danger");
-            $("#pass2_error").html("<span class='text-danger'>Password not matched</span>");
+            $("#p2_error").html("<span class='text-danger'>Password not matched</span>");
             status = true;
         }
     })

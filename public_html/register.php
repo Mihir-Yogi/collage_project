@@ -55,7 +55,6 @@
                     </select>
                     <small id="t_error" class="form-text text-muted"></small>
                 </div>
-                <small id="all_error" class="form-text text-muted"></small>
                 <br>
                 <button class="btn btn-primary" name="user_register" type="submit">Register </button>
 
