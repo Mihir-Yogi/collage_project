@@ -76,16 +76,20 @@ $(document).ready(function(){
         // for matching a tow password and creating a account 
         
         if(pass1.val() == pass2.val() && status == true){
+            $(".overlay").show();
             $.ajax({
                 url : DOMAIN+"/includes/process.php",
                 method : "POST",
                 data : $("#register_form").serialize(),
                 success : function(data){
                     if(data ==  "EMAIL_ALREADY_EXISTS"){
+                        $(".overlay").hide();
                         alert("It seems like your email is already used!!");
                     }else if(data == "SOME_ERROR"){
+                        $(".overlay").hide();
                         alert("Something Wrong!");
                     }else{
+                        $(".overlay").hide();
                         window.location.href = encodeURI(DOMAIN+"/index.php?msg=You are register now you can login!");
                     }
                 }
@@ -99,7 +103,7 @@ $(document).ready(function(){
 
     //for login 
 
-    $("#login_form").on("submit",function(){
+    $("#form_login").on("submit",function(){
         var email = $("#log_email");
         var pass = $("#log_password");
         var status = false;
@@ -122,11 +126,44 @@ $(document).ready(function(){
             status = true
         }
         if(status){
-            alert("ready")
-        }else{
-            alert("some error!!")
+            $(".overlay").show();
+            $.ajax({
+                url : DOMAIN+"/includes/process.php",
+                method : "POST",
+                data : $("#form_login").serialize(),
+                success : function(data){
+                    if(data ==  "NOT_REGISTERED"){  
+                        $(".overlay").hide();
+                        email.addClass("border-danger");
+                        $("#e_error").html("<span class='text-danger'>It seems like you are not Registered please Register first!!</span>");
+                    }else if(data == "PASSWORD_NOT_MATCHED"){
+                        $(".overlay").hide();
+                        pass.addClass("border-danger");
+                        $("#p_error").html("<span class='text-danger'>Please Enter Correct Password</span>");
+                    }else{
+                        $(".overlay").hide();
+                        console.log(data);
+                        window.location.href = encodeURI(DOMAIN+"/dashboard.php");
+                    }
+                }
+            })
         }
     })
+
+
+    // fetch camera
+    fetch_camera();
+    function fetch_camera() {
+        $.ajax({
+            url : DOMAIN+"/includes/process.php",
+            method : "POST",
+            data : {getCamera:1},
+            success : function(data){
+                var root = "<option value='0'>Root</option>";
+                $("#depot_category").html(root+data);
+            }
+        })
+    }
 
 })
 
