@@ -1,5 +1,8 @@
 $(document).ready(function(){
     var DOMAIN = "http://localhost/collage_project/public_html";
+
+    //for registration 
+
     $("#register_form").on("submit",function(){
         var status = false;
         var name = $("#username");
@@ -93,5 +96,37 @@ $(document).ready(function(){
             status = true;
         }
     })
+
+    //for login 
+
+    $("#login_form").on("submit",function(){
+        var email = $("#log_email");
+        var pass = $("#log_password");
+        var status = false;
+        if(email.val() == ""){
+            email.addClass("border-danger");
+            $("#e_error").html("<span class='text-danger'>Please Enter email Address</span>");
+            status = false
+        }else{
+            email.removeClass("border-danger");
+            $("#e_error").html("");
+            status = true
+        }
+        if(pass.val() == ""){
+            pass.addClass("border-danger");
+            $("#p_error").html("<span class='text-danger'>Please Enter Password</span>");
+            status = false
+        }else{
+            pass.removeClass("border-danger");
+            $("#p_error").html("");
+            status = true
+        }
+        if(status){
+            alert("ready")
+        }else{
+            alert("some error!!")
+        }
+    })
+
 })
 
