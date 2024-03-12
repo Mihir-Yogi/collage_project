@@ -1,7 +1,7 @@
 <!-- category model  -->
 
 <div class="modal fade" id="category" tabindex="-1" aria-labelledby="category_model" aria-hidden="true">
-<div class="modal-dialog modal-fullscreen">
+<div class="modal-dialog modal-sm">
     <div class="modal-content">
     <div class="modal-header">
         <h1 class="modal-title fs-5" id="category_add">Add Category</h1>

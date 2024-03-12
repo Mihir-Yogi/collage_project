@@ -1,7 +1,7 @@
 <!-- camera model -->
 
 <div class="modal fade" id="camera" tabindex="-1" aria-labelledby="camera_model" aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="camera_add">Add Camera</h1>

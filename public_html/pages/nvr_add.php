@@ -1,6 +1,6 @@
 <!-- Nvr Modal -->
 <div class="modal fade" id="nvr" tabindex="-1" aria-labelledby="nvr_model" aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="nvr_add">Add Nvr</h1>

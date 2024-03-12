@@ -16,7 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/login.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
@@ -58,19 +58,55 @@
 
         <div class="card mx-auto mt-5" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">Login</h5>
+                <h2 class="card-title">Login</h2>
+                <br>
             <form id="form_login" onsubmit="return false"  >
 
-                <div class="mb-3">
-                    <label for="email" >Email address</label>
-                    <input type="email" class="form-control" id="log_email" name="log_email">
-                    <small id="e_error" class="form-text text_muted"></small>
+<!-- email -->
+<div class="mb-3">
+                <div class="wave-group">
+                    <input required="" type="email" name="log_email" id="log_email" type="text" class="input">
+                        <span class="bar"></span>
+                    <label class="label">
+                        <span class="label-char" style="--index: 0">E</span>
+                        <span class="label-char" style="--index: 1">m</span>
+                        <span class="label-char" style="--index: 2">a</span>
+                        <span class="label-char" style="--index: 3">i</span>
+                        <span class="label-char" style="--index: 4">l</span>
+                        <span class="label-char" style="--index: 6">A</span>
+                        <span class="label-char" style="--index: 7">d</span>
+                        <span class="label-char" style="--index: 8">d</span>
+                        <span class="label-char" style="--index: 9">r</span>
+                        <span class="label-char" style="--index: 10">e</span>
+                        <span class="label-char" style="--index: 11">s</span>
+                    </label>
+                    <small id=e_error" class="form-text text_muted"></small>
                 </div>
-                <div class="mb-3">
+</div>
+
+                <!-- 
                     <label for="password" >Password</label>
                     <input type="password" class="form-control" name="log_password" id="log_password">
                     <small id="p_error" class="form-text text_muted"></small>
+                </div> -->
+                <div class="mb-3">
+                <div class="wave-group">
+                    <input required="" type="password" name="log_password" id="log_password" class="input">
+                        <span class="bar"></span>
+                    <label class="label">
+                        <span class="label-char" style="--index: 0">p</span>
+                        <span class="label-char" style="--index: 1">a</span>
+                        <span class="label-char" style="--index: 2">s</span>
+                        <span class="label-char" style="--index: 3">s</span>
+                        <span class="label-char" style="--index: 4">w</span>
+                        <span class="label-char" style="--index: 6">o</span>
+                        <span class="label-char" style="--index: 7">r</span>
+                        <span class="label-char" style="--index: 8">d</span>
+                    </label>
+                    <small id="p_error" class="form-text text_muted"></small>
                 </div>
+                </div>
+
                 <button class="btn btn-primary" name="user_login" type="submit">Login </button>
 
                 <span><a href="register.php">Register</a></span>

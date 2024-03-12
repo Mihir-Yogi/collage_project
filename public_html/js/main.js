@@ -16,9 +16,9 @@ $(document).ready(function(){
 
         // for username
 
-        if(name.val() == "" || name.val().length < 4){
+        if(name.val() == "" || name.val().length < 5){
             name.addClass("border-danger");
-            $("#u_error").html("<span class='text-danger'>Please Enter Name and it contain more then character</span>");
+            $("#u_error").html("<span class='text-danger'>Please Enter Name and it contain more then 5 character</span>");
             status = false;
         }else{
             name.removeClass("border-danger");
@@ -104,6 +104,7 @@ $(document).ready(function(){
     //for login 
 
     $("#form_login").on("submit",function(){
+
         var email = $("#log_email");
         var pass = $("#log_password");
         var status = false;
