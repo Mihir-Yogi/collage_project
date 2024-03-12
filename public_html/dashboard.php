@@ -113,6 +113,24 @@ include_once("./database/constant.php");
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card card-a-m m-2">
+                            <div class="card-body ">
+                                <h5 class="card-title">CATEGORY</h5>
+                                <small>Here you can add and manage depot category</small>
+                                <br>
+                                <div class="mt-2">
+                                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#category">Add</a>
+                                <a href="#" class="btn btn-primary">Manage</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -129,6 +147,9 @@ include_once("./database/constant.php");
 
         <!-- hdd_model import -->
         <?php include_once("./pages/hdd_add.php"); ?>
+
+        <!-- category_import -->
+        <?php include_once("./pages/category.php"); ?>
 
 </body>
 <script src="js/main.js"></script>

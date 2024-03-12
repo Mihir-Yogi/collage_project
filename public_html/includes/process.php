@@ -25,17 +25,25 @@ if(isset($_POST["log_email"]) AND isset($_POST["log_password"])){
     exit();
 }
 
-// to getCamera
+// to getCategory
 
-if(isset($_POST["getCamera"])){
+if(isset($_POST["getCategory"])){
     $obj = new DBoperation();
-    $rows = $obj->getAllRecord("camera");
+    $rows = $obj->getAllRecord("category");
     foreach ($rows as $row){
-        echo "<option value='".$row["category"]."'>".$row["make"]."</option>";
+        echo "<option value='".$row["id"]."'>".$row["category_name"]."</option>";
     }
     exit();
-}else{
-    echo "error";
+}
+
+
+// adding category
+
+if(isset($_POST["category_name"]) AND isset($_POST["depot_category"])) {
+    $obj = new DBoperation();
+    $result = $obj->addCategory($_POST["depot_category"],$_POST["category_name"]);
+    echo $result;
+    exit();
 }
 
 ?>

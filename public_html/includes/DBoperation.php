@@ -9,11 +9,23 @@ class DBoperation {
         $this->con = $db->connect();
     }
 
-    public function addCamera($category, $make, $serial_no, $mega_pixel, $purchase_date, $warranty, $ex_date, $ins_date){
-        $pre_stmt = $this->con->prepare("INSERT INTO `camera`(`category`, `make`, `serial_no`, `mega_pixel`, `purchase_date`, `warranty`, `ex_date`, `ins_date`, `status`) 
-        VALUES (?,?,?,?,?,?,?,?,?)");
+    // public function addCategory($category, $category_name, $serial_no, $mega_pixel, $purchase_date, $warranty, $ex_date, $ins_date){
+    //     $pre_stmt = $this->con->prepare("INSERT INTO `category`(`category`, `category_name`, `serial_no`, `mega_pixel`, `purchase_date`, `warranty`, `ex_date`, `ins_date`, `status`) 
+    //     VALUES (?,?,?,?,?,?,?,?,?)");
+    //     $status = 1;
+    //     $pre_stmt->bind_param("isiisissi",$category,$category_name,$serial_no,$mega_pixel,$purchase_date,$warranty,$ex_date,$ins_date,$status);
+    //     $result =$pre_stmt->execute() or die($this->con->error);
+    //     if($result){
+    //         return "CATEGORY_ADDED";
+    //     }else{
+    //         return 0;
+    //     }
+    // }
+    public function addCategory($depot_category, $category_name){
+        $pre_stmt = $this->con->prepare("INSERT INTO `category`(`depot_category`, `category_name`,`status`) 
+        VALUES (?,?,?)");
         $status = 1;
-        $pre_stmt->bind_param("isiisissi",$category,$make,$serial_no,$mega_pixel,$purchase_date,$warranty,$ex_date,$ins_date,$status);
+        $pre_stmt->bind_param("isi",$depot_category,$category_name,$status);
         $result =$pre_stmt->execute() or die($this->con->error);
         if($result){
             return "CATEGORY_ADDED";
@@ -21,7 +33,6 @@ class DBoperation {
             return 0;
         }
     }
-
     public function getAllRecord($table){
         $pre_stmt = $this->con->prepare("SELECT * FROM ".$table);
         $pre_stmt->execute() or die($this->con->error);
@@ -38,7 +49,7 @@ class DBoperation {
 }
 
 // $opr = new DBoperation();
-// echo $opr->addCamera(2,"sony",11221111,40,"2024-03-11", 1 , "2025-03-11", "2025-03-11");
+// echo $opr->addCategory(2,"nexon");
 // echo "<pre>";
 // print_r($opr->getAllRecord("camera"));
 

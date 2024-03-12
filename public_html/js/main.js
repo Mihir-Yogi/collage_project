@@ -151,19 +151,42 @@ $(document).ready(function(){
     })
 
 
-    // fetch camera
-    fetch_camera();
-    function fetch_camera() {
+    // fetch category
+    fetch_category();
+    function fetch_category() {
         $.ajax({
             url : DOMAIN+"/includes/process.php",
             method : "POST",
-            data : {getCamera:1},
+            data : {getCategory:1},
             success : function(data){
                 var root = "<option value='0'>Root</option>";
                 $("#depot_category").html(root+data);
             }
         })
     }
+
+    //add category
+    $("#category_form").on("submit",function(){
+        if($("#category_name").val() == ""){
+            $("#category_name").addClass("border-danger");
+            $("#cat_error").html("<span class='text-danger'>Please Enter Category name</span>");
+        }else{
+            $.ajax({
+                url : DOMAIN+"/includes/process.php",
+                method : "POST",
+                data : $("#category_form").serialize(),
+                success : function(data){
+                    if(data == "CATEGORY_ADDED"){
+                        $("#category_name").removeClass("border-danger");
+                        $("#cat_error").html("<span class='text-success'>New category successfully added!!</span>");
+                        $("#category_name").val("")
+                    }else{
+                        alert(data);
+                    }
+                }
+            })
+        }
+    })
 
 })
 
