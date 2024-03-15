@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     
     <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/login.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
@@ -42,16 +43,39 @@
                 <br>
             <form id="register_form" onsubmit="return false" autocomplete="off" >
             <div class="mb-3 row">  
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                     <label for="username">Full name</label>
                     <input type="text" name="username" class="form-control" id="username">
                     <small id="u_error" class="form-text"></small>
+                </div> -->
+            <div class="col-md-6">
+                <div class="wave-group">
+                    <input required="" type="text" name="username" id="username" class="input">
+                        <span class="bar"></span>
+                    <label class="label">
+                        <span class="label-char" style="--index: 0">N</span>
+                        <span class="label-char" style="--index: 1">a</span>
+                        <span class="label-char" style="--index: 2">m</span>
+                        <span class="label-char" style="--index: 3">e</span>
+                    </label>
+                    <small id=e_error" class="form-text text_muted"></small>
                 </div>
-                <div class="col-md-6">
-                    <label for="email">Email address</label>
-                    <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
-                    <small id="e_error" class="form-text text-muted"></small>
+            </div>
+
+            <div class="col-md-6">
+                <div class="wave-group">
+                    <input required="" type="email" name="email" id="email" class="input">
+                        <span class="bar"></span>
+                    <label class="label">
+                        <span class="label-char" style="--index: 0">E</span>
+                        <span class="label-char" style="--index: 1">m</span>
+                        <span class="label-char" style="--index: 2">a</span>
+                        <span class="label-char" style="--index: 3">i</span>
+                        <span class="label-char" style="--index: 3">l</span>
+                    </label>
+                    <small id=e_error" class="form-text text_muted"></small>
                 </div>
+            </div>
 
             </div>
             <div class="mb-3 row">

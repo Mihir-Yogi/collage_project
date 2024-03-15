@@ -10,22 +10,23 @@
         <div class="modal-body">
         
 
-        <form id="category_form" onsubmit="return false">
-        <div class="mb-3">
-            <label>Category name</label>
-            <input type="text" class="form-control" id="category_name" name="category_name">
-            <small id="cat_error" class="form-text"></small>
-        </div>
+        <form id="child_form" onsubmit="return false">
+        
 
         <div class="mb-3">
-            <label>category</label>
-            <select class="form-control" id="depot_category" name="depot_category">
+            <label>category option</label>
+            <select class="form-control" id="parent_category" name="parent_category">
 
             </select>
+            <small id="p_error" class="form-text"></small>
         </div>
 
-        
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="mb-3">
+            <label>child category name</label>
+            <input type="text" class="form-control" id="child_name" name="child_name">
+            <small id="c_error" class="form-text"></small>
+        </div>
+        <button type="child_submit" class="btn btn-primary">Submit</button>
         </form>
 
 

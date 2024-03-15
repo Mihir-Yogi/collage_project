@@ -8,12 +8,11 @@ class DBoperation {
         $db = new Database();
         $this->con = $db->connect();
     }
-
-    // public function addCategory($category, $category_name, $serial_no, $mega_pixel, $purchase_date, $warranty, $ex_date, $ins_date){
-    //     $pre_stmt = $this->con->prepare("INSERT INTO `category`(`category`, `category_name`, `serial_no`, `mega_pixel`, `purchase_date`, `warranty`, `ex_date`, `ins_date`, `status`) 
-    //     VALUES (?,?,?,?,?,?,?,?,?)");
+    // public function addCategory($category_name){
+    //     $pre_stmt = $this->con->prepare("INSERT INTO `category`(`category_name`,`status`) 
+    //     VALUES (?,?)");
     //     $status = 1;
-    //     $pre_stmt->bind_param("isiisissi",$category,$category_name,$serial_no,$mega_pixel,$purchase_date,$warranty,$ex_date,$ins_date,$status);
+    //     $pre_stmt->bind_param("si",$category_name,$status);
     //     $result =$pre_stmt->execute() or die($this->con->error);
     //     if($result){
     //         return "CATEGORY_ADDED";
@@ -21,20 +20,30 @@ class DBoperation {
     //         return 0;
     //     }
     // }
-    public function addCategory($depot_category, $category_name){
-        $pre_stmt = $this->con->prepare("INSERT INTO `category`(`depot_category`, `category_name`,`status`) 
+
+
+
+    public function addCategory($child_name,$selected_index){
+        $pre_stmt = $this->con->prepare("INSERT INTO `child_category` (`child_name`,`parent_id`,`status`) 
         VALUES (?,?,?)");
+        
+        if (!$pre_stmt) {
+            die("Error in SQL query: " . $this->con->error);
+        }
+
         $status = 1;
-        $pre_stmt->bind_param("isi",$depot_category,$category_name,$status);
+        $pre_stmt->bind_param("sii",$child_name,$selected_index,$status);
         $result =$pre_stmt->execute() or die($this->con->error);
         if($result){
             return "CATEGORY_ADDED";
         }else{
-            return 0;
+            return "error";
         }
     }
+
+
     public function getAllRecord($table){
-        $pre_stmt = $this->con->prepare("SELECT * FROM ".$table);
+        $pre_stmt = $this->con->prepare("SELECT * FROM category");
         $pre_stmt->execute() or die($this->con->error);
         $result = $pre_stmt->get_result();
         $rows = array();
@@ -47,9 +56,8 @@ class DBoperation {
         return "No_DATA";
     }
 }
-
 // $opr = new DBoperation();
-// echo $opr->addCategory(2,"nexon");
+// echo $opr->addCategory("nixon1",4);
 // echo "<pre>";
 // print_r($opr->getAllRecord("camera"));
 

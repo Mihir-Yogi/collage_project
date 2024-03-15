@@ -18,7 +18,7 @@ $(document).ready(function(){
 
         if(name.val() == "" || name.val().length < 5){
             name.addClass("border-danger");
-            $("#u_error").html("<span class='text-danger'>Please Enter Name and it contain more then 5 character</span>");
+            ($("#u_error").html("<span class='text-danger'>Please Enter Name and it contain more then 5 character</span>"));
             status = false;
         }else{
             name.removeClass("border-danger");
@@ -150,8 +150,6 @@ $(document).ready(function(){
             })
         }
     })
-
-
     // fetch category
     fetch_category();
     function fetch_category() {
@@ -161,26 +159,43 @@ $(document).ready(function(){
             data : {getCategory:1},
             success : function(data){
                 var root = "<option value='0'>Root</option>";
-                $("#depot_category").html(root+data);
+                $("#parent_category").html(root+data);
             }
         })
     }
+    
 
-    //add category
-    $("#category_form").on("submit",function(){
-        if($("#category_name").val() == ""){
-            $("#category_name").addClass("border-danger");
-            $("#cat_error").html("<span class='text-danger'>Please Enter Category name</span>");
-        }else{
+    $("#child_form").on("submit", function() {
+        var selectedIndex = $("#parent_category").prop("selectedIndex"); // Get the index of the selected option
+        var childName = $("#child_name").val(); // Get the value of the child category name input
+        var formData = {
+            "child_name": childName,
+            "selected_index": selectedIndex
+        };
+        console.log(JSON.stringify(formData));
+
+        if (selectedIndex == 0) {
+            $("#parent_category").addClass("border-danger");
+            $("#p_error").html("<span class='text-danger'>Please Select a Parent Category</span>");
+            return false; 
+        } else {
+            $("#parent_category").removeClass("border-danger");  
+            $("#p_error").html(""); 
+        }
+        if (childName == ""){
+            $("#child_name").addClass("border-danger");
+            $("#c_error").html("<span class='text-danger'>Please Enter Child Category name</span>");
+            return false; 
+        } else {  
             $.ajax({
-                url : DOMAIN+"/includes/process.php",
-                method : "POST",
-                data : $("#category_form").serialize(),
-                success : function(data){
-                    if(data == "CATEGORY_ADDED"){
-                        $("#category_name").removeClass("border-danger");
-                        $("#cat_error").html("<span class='text-success'>New category successfully added!!</span>");
-                        $("#category_name").val("")
+                url: DOMAIN + "/includes/process.php",
+                method: "POST",
+                data: formData,
+                success: function(data) {
+                    if (data == "CATEGORY_ADDED") {
+                        $("#child_name").removeClass("border-danger");
+                        $("#c_error").html("<span class='text-success'>New category successfully added!!</span>");
+                        $("#child_name").val("");
                     }else{
                         alert(data);
                     }
@@ -188,6 +203,9 @@ $(document).ready(function(){
             })
         }
     })
+    
+    
+    
+
 
 })
-

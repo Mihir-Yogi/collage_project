@@ -63,7 +63,7 @@
             <form id="form_login" onsubmit="return false"  >
 
 <!-- email -->
-<div class="mb-3">
+            <div class="mb-3">
                 <div class="wave-group">
                     <input required="" type="email" name="log_email" id="log_email" type="text" class="input">
                         <span class="bar"></span>
@@ -73,23 +73,12 @@
                         <span class="label-char" style="--index: 2">a</span>
                         <span class="label-char" style="--index: 3">i</span>
                         <span class="label-char" style="--index: 4">l</span>
-                        <span class="label-char" style="--index: 6">A</span>
-                        <span class="label-char" style="--index: 7">d</span>
-                        <span class="label-char" style="--index: 8">d</span>
-                        <span class="label-char" style="--index: 9">r</span>
-                        <span class="label-char" style="--index: 10">e</span>
-                        <span class="label-char" style="--index: 11">s</span>
                     </label>
                     <small id=e_error" class="form-text text_muted"></small>
                 </div>
-</div>
+            </div>
 
-                <!-- 
-                    <label for="password" >Password</label>
-                    <input type="password" class="form-control" name="log_password" id="log_password">
-                    <small id="p_error" class="form-text text_muted"></small>
-                </div> -->
-                <div class="mb-3">
+            <div class="mb-3">
                 <div class="wave-group">
                     <input required="" type="password" name="log_password" id="log_password" class="input">
                         <span class="bar"></span>
@@ -105,7 +94,7 @@
                     </label>
                     <small id="p_error" class="form-text text_muted"></small>
                 </div>
-                </div>
+            </div>
 
                 <button class="btn btn-primary" name="user_login" type="submit">Login </button>
 

@@ -31,19 +31,28 @@ if(isset($_POST["getCategory"])){
     $obj = new DBoperation();
     $rows = $obj->getAllRecord("category");
     foreach ($rows as $row){
-        echo "<option value='".$row["id"]."'>".$row["category_name"]."</option>";
+        echo "<option value='".$row["pid"]."'>".$row["category_name"]."</option>";
     }
     exit();
 }
 
+// Add new child category
+if (isset($_POST['child_name']) && isset($_POST['selected_index'])) {
+    $child_name = $_POST['child_name'];
+    $selected_index = $_POST['selected_index'];
 
-// adding category
+    // echo "Received child_name: " . $child_name . "<br>";
+    // echo "Received selected_index: " . $selected_index . "<br>";
 
-if(isset($_POST["category_name"]) AND isset($_POST["depot_category"])) {
-    $obj = new DBoperation();
-    $result = $obj->addCategory($_POST["depot_category"],$_POST["category_name"]);
-    echo $result;
-    exit();
+    $dbOperation = new DBoperation();
+    $result = $dbOperation->addCategory($child_name, $selected_index);
+
+    if ($result == "CATEGORY_ADDED") {
+        echo "CATEGORY_ADDED";
+    } else {
+        echo "ERROR";   
+    }
+} else {
+    echo "Invalid Request";
 }
-
 ?>
