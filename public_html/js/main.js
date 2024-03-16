@@ -166,26 +166,36 @@ $(document).ready(function(){
     
 
     $("#child_form").on("submit", function() {
-        var selectedIndex = $("#parent_category").prop("selectedIndex"); // Get the index of the selected option
-        var childName = $("#child_name").val(); // Get the value of the child category name input
-        var formData = {
-            "child_name": childName,
-            "selected_index": selectedIndex
-        };
-        console.log(JSON.stringify(formData));
+        var formData = $(this).serialize();
+    
+        $.ajax({
+            url: DOMAIN + "/includes/process.php",
+            method: "POST",
+            data: formData,
+            success: function(data) {
+                if (data.trim() === "CATEGORY_ADDED") {
+                    $("#child_name").removeClass("border-danger");
+                    $("#c_error").html("<span class='text-success'>New category successfully added!!</span>");
+                    $("#child_name").val("");
+                    // fetch_category();
+                } else {
+                    alert(data);
+                }
+            }
+        });
+    });
+    
 
-        if (selectedIndex == 0) {
-            $("#parent_category").addClass("border-danger");
-            $("#p_error").html("<span class='text-danger'>Please Select a Parent Category</span>");
-            return false; 
-        } else {
-            $("#parent_category").removeClass("border-danger");  
-            $("#p_error").html(""); 
-        }
-        if (childName == ""){
-            $("#child_name").addClass("border-danger");
-            $("#c_error").html("<span class='text-danger'>Please Enter Child Category name</span>");
-            return false; 
+    $("#category_form").on("submit", function() {
+        var categoryName = $("#category_name").val();
+        var formData = {
+            "category_name": categoryName,
+        };
+
+        if (categoryName == ""){
+            $("#category_name").addClass("border-danger");
+            $("#cat_error").html("<span class='text-danger'>Please Enter Category name</span>");
+            return false;
         } else {  
             $.ajax({
                 url: DOMAIN + "/includes/process.php",
@@ -193,9 +203,10 @@ $(document).ready(function(){
                 data: formData,
                 success: function(data) {
                     if (data == "CATEGORY_ADDED") {
-                        $("#child_name").removeClass("border-danger");
-                        $("#c_error").html("<span class='text-success'>New category successfully added!!</span>");
-                        $("#child_name").val("");
+                        $("#category_name").removeClass("border-danger");
+                        $("#cat_error").html("<span class='text-success'>New category successfully added!!</span>");
+                        $("#category_name").val("");
+                        fetch_category();
                     }else{
                         alert(data);
                     }
@@ -204,8 +215,71 @@ $(document).ready(function(){
         }
     })
     
-    
-    
 
+    function loadData(type, category_id){
+
+        $.ajax({
+            url : DOMAIN+"/includes/fetch_cat.php",
+            type : "POST",
+            data :{type : type , id : category_id},
+            success: function(data){
+                if(type == "childData"){
+                    $("#camera_c_depot").html(data);
+                    $("#dvr_c_depot").html(data);
+                    $("#hdd_c_depot").html(data);
+                    $("#nvr_c_depot").html(data);
+                }else{
+                    $("#camera_d_cat").append(data);
+                    $("#dvr_d_cat").append(data);
+                    $("#hdd_d_cat").append(data);
+                    $("#nvr_d_cat").append(data);
+                }
+
+            }
+        })
+    }
+
+    $("#camera_d_cat").on("change",function(){
+        var depot = $("#camera_d_cat").val();
+
+        if(depot != ""){
+            loadData("childData", depot);  
+        }else{
+            $("#camera_c_depot").html("");
+        }
+
+    })
+    $("#dvr_d_cat").on("change",function(){
+        var depot = $("#dvr_d_cat").val();
+
+        if(depot != ""){
+            loadData("childData", depot);  
+        }else{
+            $("#dvr_c_depot").html("");
+        }
+
+    })
+    $("#hdd_d_cat").on("change",function(){
+        var depot = $("#hdd_d_cat").val();
+
+        if(depot != ""){
+            loadData("childData", depot);  
+        }else{
+            $("#hdd_c_depot").html("");
+        }
+
+    })
+    $("#nvr_d_cat").on("change",function(){
+        var depot = $("#nvr_d_cat").val();
+
+        if(depot != ""){
+            loadData("childData", depot);  
+        }else{
+            $("#nvr_c_depot").html("");
+        }
+
+    })
+
+    loadData();
 
 })

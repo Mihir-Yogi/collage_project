@@ -121,23 +121,34 @@ include_once("./database/constant.php");
                                 <small>Here you can add and manage depot category</small>
                                 <br>
                                 <div class="mt-2">
-                                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#category">Add</a>
+                                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#child_category">Add</a>
                                 <a href="#" class="btn btn-primary">Manage</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        
+                        <div class="card card-a-m m-2">
+                            <div class="card-body">
+                                <h5 class="card-title">PARENT</h5>
+                                <small>Here you can add and manage PARENT</small>
+                                <div class="mt-2">
+                                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#parent">Add</a>
+                                <a href="#" class="btn btn-primary">Manage</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>    
+        <!-- camera_import -->
+        <?php include_once("./pages/camera_add.php"); ?>
 
         <!-- camera_model import -->
-        <?php include_once("./pages/camera_add.php"); ?>
+        <?php include_once("./pages/parent_add.php"); ?>
 
         <!-- nvr_model import -->
         <?php include_once("./pages/nvr_add.php"); ?>
@@ -149,8 +160,11 @@ include_once("./database/constant.php");
         <?php include_once("./pages/hdd_add.php"); ?>
 
         <!-- category_import -->
-        <?php include_once("./pages/category.php"); ?>
+        <?php include_once("./pages/child_add.php"); ?>
+
+
 
 </body>
 <script src="js/main.js"></script>
+
 </html>

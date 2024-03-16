@@ -2,6 +2,7 @@
 
 include_once("../database/constant.php");
 include_once("../includes/user.php");
+include_once("../database/db.php");
 include_once("../includes/DBoperation.php");
 
 // for registration
@@ -30,29 +31,45 @@ if(isset($_POST["log_email"]) AND isset($_POST["log_password"])){
 if(isset($_POST["getCategory"])){
     $obj = new DBoperation();
     $rows = $obj->getAllRecord("category");
+    $options = "";
     foreach ($rows as $row){
-        echo "<option value='".$row["pid"]."'>".$row["category_name"]."</option>";
+        $options .=  "<option value='".$row["pid"]."'>".$row["category_name"]."</option>";
     }
+    echo $options;
     exit();
 }
 
 // Add new child category
-if (isset($_POST['child_name']) && isset($_POST['selected_index'])) {
+if (isset($_POST['child_name']) && isset($_POST['parent_category'])) {
     $child_name = $_POST['child_name'];
-    $selected_index = $_POST['selected_index'];
-
-    // echo "Received child_name: " . $child_name . "<br>";
-    // echo "Received selected_index: " . $selected_index . "<br>";
+    $parentCategory = $_POST['parent_category']; // Change to 'parent_category'
 
     $dbOperation = new DBoperation();
-    $result = $dbOperation->addCategory($child_name, $selected_index);
+    $result = $dbOperation->addChildCategory($child_name, $parentCategory); 
+
+    if ($result === "CATEGORY_ADDED") {
+        echo "CATEGORY_ADDED";
+    } else {
+        echo "ERROR";   
+    }
+}
+
+
+// Add new category
+if (isset($_POST['category_name'])) {
+    $category_name = $_POST['category_name'];
+
+    // echo "Received child_name: " . $category_name . "<br>";
+
+    $dbOperation = new DBoperation();
+    $result = $dbOperation->addCategory($category_name);
 
     if ($result == "CATEGORY_ADDED") {
         echo "CATEGORY_ADDED";
     } else {
         echo "ERROR";   
     }
-} else {
-    echo "Invalid Request";
 }
+
+
 ?>

@@ -1,18 +1,75 @@
-<!-- Hdd Modal -->
+<!-- hdd Modal -->
 <div class="modal fade" id="hdd" tabindex="-1" aria-labelledby="hdd_model" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="nvr_add">Add Hdd</h1>
+    <div class="modal-header">
+        <h1 class="modal-title fs-5">Add Hdd</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
+        </div>
+        <div class="modal-body">
+    <form>
+        <div class="mb-3 row">
+            <div class="col-md-6">
+                <label for="make" class="form-label">make</label>
+                <input type="text" class="form-control" id="cam_make" aria-describedby="cam_make">
+            </div>
+
+            <div class="col-md-6">
+                <label for="serial no" class="form-label">serial no</label>
+                <input type="number" class="form-control" id="serial_no"> 
+            </div>
+        </div>
+        
+        <div class="mb-3 row">
+            <div class="col-md-6">
+                <label for="megapixel" class="form-label">megapixel</label>
+                <input type="number" class="form-control" id="mega_pixel">
+                
+            </div>
+            
+            <div class="col-md-6">
+                <label for="purchase date" class="form-label">purchase date</label>
+                <input type="date" class="form-control" id="purchase_date">
+
+            </div>
+
+
+        </div>
+        
+
+        <div class="mb-3 row">
+            <div class="col-md-6">
+                <label for="depot">Depot</label>
+                <select name="hdd_d_cat" class="form-control" id="hdd_d_cat">
+                    <option value="">Select depot</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="child depot">category</label>
+                <select name="hdd_c_depot" class="form-control" id="hdd_c_depot">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="warranty">warranty</label>
+            <input type="number" class="form-control" id="warranty">
+
+        </div>
+        
+        <div class="mb-3">
+            <label for="expiry date">Expiry date</label>
+            <input type="date" class="form-control" id="ex_date">
+
+        </div>
+        
+
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+        </div>
+        <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success">Add</button>
-      </div>
+        </div>
     </div>
-  </div>
+    </div>
 </div>

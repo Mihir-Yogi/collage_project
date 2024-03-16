@@ -1,6 +1,6 @@
 <!-- category model  -->
 
-<div class="modal fade" id="category" tabindex="-1" aria-labelledby="category_model" aria-hidden="true">
+<div class="modal fade" id="child_category" tabindex="-1" aria-labelledby="category_model" aria-hidden="true">
 <div class="modal-dialog modal-sm">
     <div class="modal-content">
     <div class="modal-header">
@@ -32,6 +32,7 @@
 
     </div>
     <div class="modal-footer">
+    <button class="btn btn-primary" data-bs-target="#parent" data-bs-toggle="modal">Add parent category</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
     </div>
     </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>CIMS management system</title>
+    <title>CIM management system</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -43,11 +43,6 @@
                 <br>
             <form id="register_form" onsubmit="return false" autocomplete="off" >
             <div class="mb-3 row">  
-                <!-- <div class="col-md-6">
-                    <label for="username">Full name</label>
-                    <input type="text" name="username" class="form-control" id="username">
-                    <small id="u_error" class="form-text"></small>
-                </div> -->
             <div class="col-md-6">
                 <div class="wave-group">
                     <input required="" type="text" name="username" id="username" class="input">
@@ -85,7 +80,7 @@
                     <small id="p1_error" class="form-text text-muted"></small>
                 </div>
                 <div class="col-md-6">
-                <label for="password">Conform Password</label>
+                    <label for="password">Conform Password</label>
                     <input type="password" name="password2" class="form-control" id="password2">
                     <small id="p2_error" class="form-text text-muted"></small>
                 </div>
