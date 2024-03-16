@@ -26,6 +26,31 @@ if(isset($_POST["log_email"]) AND isset($_POST["log_password"])){
     exit();
 }
 
+
+if(isset($_POST["cam_make"]) && isset($_POST["serial_no"]) && isset($_POST["mega_pixel"]) && isset($_POST["purchase_date"]) && isset($_POST["camera_d_cat"]) && isset($_POST["camera_c_depot"]) && isset($_POST["warranty"]) && isset($_POST["ex_date"])) {
+    $camMake = $_POST["cam_make"];
+    $serialNo = $_POST["serial_no"];
+    $megaPixel = $_POST["mega_pixel"];
+    $purchaseDate = $_POST["purchase_date"];
+    $cameraDCat = $_POST["camera_d_cat"];
+    $cameraCDepot = $_POST["camera_c_depot"];
+    $warranty = $_POST["warranty"];
+    $exDate = $_POST["ex_date"];
+
+
+    $dbOperation = new DBoperation();
+    $result = $dbOperation->addCamera($camMake, $serialNo, $megaPixel, $purchaseDate, $cameraDCat, $cameraCDepot, $warranty, $exDate);
+    echo $result;
+    // if($result === true) {
+    //     echo "CAMERA_ADDED";
+    // } else {
+    //     echo "Error: " . $result; 
+    // }
+    exit();
+}
+
+
+
 // to getCategory
 
 if(isset($_POST["getCategory"])){

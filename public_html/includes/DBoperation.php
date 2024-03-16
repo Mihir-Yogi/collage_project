@@ -27,6 +27,24 @@ class DBoperation {
             return "error";
         }
     }
+    public function addCamera($cam_make,$serial_no,$mega_pixel,$purchase_date,$camera_d_cat,$camera_c_cat,$warranty,$ex_date){
+        $pre_stmt = $this->con->prepare("INSERT INTO `camera_collection` (`make`,`serial_no`,`mega_pixel`,`purchase_date`,`depot`,`category`,`warranty`,`ex_date`) 
+        VALUES (?,?,?,?,?,?,?,?)");
+        
+        if (!$pre_stmt) {
+            die("Error in SQL query: " . $this->con->error);
+        }
+
+        $pre_stmt->bind_param("siisssis",$cam_make,$serial_no,$mega_pixel,$purchase_date,$camera_d_cat,$camera_c_cat,$warranty,$ex_date);
+        $result =$pre_stmt->execute() or die($this->con->error);
+        if($result){
+            return "CAMERA_ADDED";
+        }else{
+            return "error";
+        }
+    }
+
+    
 
     //category data
     public function addCategory($category_name){
@@ -62,6 +80,11 @@ class DBoperation {
         return "No_DATA";
     }
 }
+
+// $opr = new DBoperation();
+// echo $opr->addCamera("canon",55554411,15,2024-5-15,"mehsana","depot 1",5,2025-5-15);
+// echo"<pre>"
+
 // $opr = new DBoperation();
 // echo $opr->addChildCategory("nixon1","ramu");
 // echo "<pre>";

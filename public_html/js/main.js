@@ -214,72 +214,161 @@ $(document).ready(function(){
             })
         }
     })
+
     
-
+    
     function loadData(type, category_id){
-
+        
         $.ajax({
             url : DOMAIN+"/includes/fetch_cat.php",
             type : "POST",
             data :{type : type , id : category_id},
             success: function(data){
                 if(type == "childData"){
-                    $("#camera_c_depot").html(data);
-                    $("#dvr_c_depot").html(data);
-                    $("#hdd_c_depot").html(data);
-                    $("#nvr_c_depot").html(data);
+                    $("#camera_c_depot,#dvr_c_depot,#hdd_c_depot,#nvr_c_depot").html(data);
                 }else{
-                    $("#camera_d_cat").append(data);
-                    $("#dvr_d_cat").append(data);
-                    $("#hdd_d_cat").append(data);
-                    $("#nvr_d_cat").append(data);
+                    $("#camera_d_cat,#dvr_d_cat,#hdd_d_cat,#nvr_d_cat").append(data);
                 }
 
             }
         })
     }
 
-    $("#camera_d_cat").on("change",function(){
-        var depot = $("#camera_d_cat").val();
+    $("#camera_d_cat,#dvr_d_cat,#hdd_d_cat,#nvr_d_cat").on("change",function(){
+        var depot = $("#camera_d_cat,#dvr_d_cat,#hdd_d_cat,#nvr_d_cat").val();
 
         if(depot != ""){
             loadData("childData", depot);  
         }else{
-            $("#camera_c_depot").html("");
-        }
-
-    })
-    $("#dvr_d_cat").on("change",function(){
-        var depot = $("#dvr_d_cat").val();
-
-        if(depot != ""){
-            loadData("childData", depot);  
-        }else{
-            $("#dvr_c_depot").html("");
-        }
-
-    })
-    $("#hdd_d_cat").on("change",function(){
-        var depot = $("#hdd_d_cat").val();
-
-        if(depot != ""){
-            loadData("childData", depot);  
-        }else{
-            $("#hdd_c_depot").html("");
-        }
-
-    })
-    $("#nvr_d_cat").on("change",function(){
-        var depot = $("#nvr_d_cat").val();
-
-        if(depot != ""){
-            loadData("childData", depot);  
-        }else{
-            $("#nvr_c_depot").html("");
+            $("#camera_c_depot,#dvr_c_depot,#hdd_c_depot,#nvr_c_depot").html("");
         }
 
     })
 
     loadData();
 
+
+
+    // camera form
+
+    //for clear button
+    $("#clear_button").on("click", function() {
+        // Clear all input fields
+        $("#cam_make").val("");
+        $("#serial_no").val("");
+        $("#mega_pixel").val("");
+        $("#purchase_date").val("");
+        $("#camera_d_cat").val("");
+        $("#camera_c_depot").val("");
+        $("#warranty").val("");
+        $("#ex_date").val("");
+        
+        // Clear any error messages
+        $("small[id$='_error']").empty();
+        
+        // Remove any error styling
+        $("input").removeClass("border-danger");
+    });
+
+    $("#camera_form").on("submit", function() {
+        var camMake = $("#cam_make").val();
+        var serialNo = $("#serial_no").val();
+        var megaPixel = $("#mega_pixel").val();
+        var purchaseDate = $("#purchase_date").val();
+        var cameraDCat = $("#camera_d_cat").val();
+        var cameraCDepot = $("#camera_c_depot").val();
+        var warranty = $("#warranty").val();
+        var exDate = $("#ex_date").val();
+        var status = false;
+
+    
+        if (camMake == ""){
+            $("#cam_make").addClass("border-danger");
+            $("#make_error").html("<span class='text-danger'>Please Enter Make!</span>");
+            status = false ;
+        } else{
+            $("#cam_make").removeClass("border-danger");
+            $("#make_error").html("");
+            status = true;
+        }
+        if (serialNo == ""){
+            $("#serial_no").addClass("border-danger");
+            $("#serial_error").html("<span class='text-danger'>Please Enter serial number!</span>");
+            status = false ;
+        } else{
+            $("#serial_no").removeClass("border-danger");
+            $("#serial_error").html("");
+            status = true;
+        }
+        if (megaPixel == ""){
+            $("#mega_pixel").addClass("border-danger");
+            $("#pixel_error").html("<span class='text-danger'>Please Enter megapixel!</span>");
+            status = false ;
+        } else{
+            $("#mega_pixel").removeClass("border-danger");
+            $("#pixel_error").html("");
+            status = true;
+        }
+        if (purchaseDate == ""){
+            $("#purchase_date").addClass("border-danger");
+            $("#purchase_error").html("<span class='text-danger'>Please Enter Purchase Date!</span>");
+            status = false ;
+        } else{
+            $("#purchase_date").removeClass("border-danger");
+            $("#purchase_error").html("");
+            status = true;
+        }
+        if (cameraDCat == ""){
+            $("#camera_d_cat").addClass("border-danger");
+            $("#camera_d_error").html("<span class='text-danger'>Please Select Depot!</span>");
+            status = false ;
+        } else{
+            $("#camera_d_cat").removeClass("border-danger");
+            $("#camera_d_error").html("");
+            status = true;
+        }
+        if (cameraCDepot == ""){
+            $("#camera_c_depot").addClass("border-danger");
+            $("#camera_c_error").html("<span class='text-danger'>Please Select Category!</span>");
+            status = false ;
+        } else{
+            $("#camera_c_depot").removeClass("border-danger");
+            $("#camera_C_error").html("");
+            status = true;
+        }
+        if (warranty == ""){
+            $("#warranty").addClass("border-danger");
+            $("#warranty_error").html("<span class='text-danger'>Please Enter warranty!</span>");
+            status = false ;
+        } else{
+            $("#warranty").removeClass("border-danger");
+            $("#warranty_error").html("");
+            status = true;
+        }
+        if (exDate == ""){
+            $("#ex_date").addClass("border-danger");
+            $("#ex_error").html("<span class='text-danger'>Please Enter Expiry!</span>");
+            status = false ;
+        } else{
+            $("#ex_date").removeClass("border-danger");
+            $("#ex_error").html("");
+            status = true;
+        }
+        if(status){  
+            $.ajax({
+                url: DOMAIN + "/includes/process.php",
+                method: "POST",
+                data:  $("#camera_form").serialize(),
+                success: function(data) {
+                    if (data == "CAMERA_ADDED") {
+                        $("#camera_success").html("<span class='text-success'>Camera Successfully added.</span>")
+                        loadData();
+                    }else{
+                        alert(data);
+                    }
+                }
+            })
+        }
+    })
+    
 })
