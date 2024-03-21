@@ -76,43 +76,17 @@ include_once("./database/constant.php");
                     <div class="col-sm-6">
                         <div class="card card-a-m m-2">
                             <div class="card-body">
-                                <h5 class="card-title">NVR</h5>
-                                <small>Here you can add and manage NVR</small>
+                                <h5 class="card-title">NVR/DVR/HDD</h5>
+                                <small>Here you can add and manage NVR/DVR AND HDD</small>
                                 <div class="mt-2">
-                                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#nvr">Add</a>
-                                <a href="#" class="btn btn-primary">Manage</a>
+                                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#combo">Add</a>
+                                <a href="pages/combo_manage.php" class="btn btn-primary">Manage</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="card card-a-m m-2">
-                            <div class="card-body ">
-                                <h5 class="card-title">DVR</h5>
-                                <small>Here you can add and manage DVR</small>
-                                <br>
-                                <div class="mt-2">
-                                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#dvr">Add</a>
-                                <a href="#" class="btn btn-primary">Manage</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card m-2 mb-3 card-a-m">
-                            <div class="card-body">
-                                <h5 class="card-title">HDD</h5>
-                                <small>Here you can add and manage HDD</small>
-                                <div class="mt-2">
-                                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#hdd">Add</a>
-                                <a href="#" class="btn btn-primary">Manage</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="card card-a-m m-2">
@@ -150,14 +124,8 @@ include_once("./database/constant.php");
         <!-- camera_model import -->
         <?php include_once("./pages/parent_add.php"); ?>
 
-        <!-- nvr_model import -->
-        <?php include_once("./pages/nvr_add.php"); ?>
-
-        <!-- dvr_model import -->
-        <?php include_once("./pages/dvr_add.php"); ?>
-
-        <!-- hdd_model import -->
-        <?php include_once("./pages/hdd_add.php"); ?>
+        <!-- combo_model import -->
+        <?php include_once("./pages/combo_add.php"); ?>
 
         <!-- category_import -->
         <?php include_once("./pages/child_add.php"); ?>

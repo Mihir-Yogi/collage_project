@@ -150,7 +150,12 @@ $(document).ready(function(){
             })
         }
     })
-    // fetch category
+
+
+
+
+
+// fetch category
     fetch_category();
     function fetch_category() {
         $.ajax({
@@ -164,6 +169,11 @@ $(document).ready(function(){
         })
     }
     
+
+
+
+
+// for child form
 
     $("#child_form").on("submit", function() {
         var formData = $(this).serialize();
@@ -185,7 +195,7 @@ $(document).ready(function(){
         });
     });
     
-
+// category form
     $("#category_form").on("submit", function() {
         var categoryName = $("#category_name").val();
         var formData = {
@@ -216,40 +226,51 @@ $(document).ready(function(){
     })
 
     
-    
-    function loadData(type, category_id){
-        
-        $.ajax({
-            url : DOMAIN+"/includes/fetch_cat.php",
-            type : "POST",
-            data :{type : type , id : category_id},
-            success: function(data){
-                if(type == "childData"){
-                    $("#camera_c_depot,#dvr_c_depot,#hdd_c_depot,#nvr_c_depot").html(data);
-                }else{
-                    $("#camera_d_cat,#dvr_d_cat,#hdd_d_cat,#nvr_d_cat").append(data);
+    // for load data into dropdown
+
+
+        function loadData(type, category_id){
+            
+            $.ajax({
+                url : DOMAIN+"/includes/fetch_cat.php",
+                type : "POST",
+                data :{type : type , id : category_id},
+                success: function(data){
+                    if(type == "childData"){
+                        $("#camera_c_depot").html(data);
+                        $("#combo_c_depot").html(data);
+                    }else{
+                        $("#camera_d_cat").append(data);
+                        $("#combo_d_cat").append(data);
+                    }
+
                 }
-
-            }
-        })
-    }
-
-    $("#camera_d_cat,#dvr_d_cat,#hdd_d_cat,#nvr_d_cat").on("change",function(){
-        var depot = $("#camera_d_cat,#dvr_d_cat,#hdd_d_cat,#nvr_d_cat").val();
-
-        if(depot != ""){
-            loadData("childData", depot);  
-        }else{
-            $("#camera_c_depot,#dvr_c_depot,#hdd_c_depot,#nvr_c_depot").html("");
+            })
         }
 
-    })
+        $("#camera_d_cat").on("change",function(){
+            var depot = $("#camera_d_cat").val();
 
-    loadData();
+            if(depot != ""){
+                loadData("childData", depot);  
+            }else{
+                $("#camera_c_depot").html("");
+            }
 
+        })
+        $("#combo_d_cat").on("change",function(){
+            var depot = $("#combo_d_cat").val();
 
+            if(depot != ""){
+                loadData("childData", depot);  
+            }else{
+                $("#combo_c_depot").html("");
+            }
 
-    // camera form
+        })
+
+        loadData();
+
 
     //for clear button
     $("#clear_button").on("click", function() {
@@ -269,6 +290,69 @@ $(document).ready(function(){
         // Remove any error styling
         $("input").removeClass("border-danger");
     });
+
+
+    //combo form
+
+    $("#combo_form").on("submit", function(){
+
+        var formData = $(this).serialize();
+        console.log("Form data:", formData);
+
+        var comboDepotCategory = $("#combo_d_cat").val();
+        var comboCategoryDepot = $("#combo_c_depot").val();
+        var section = $("#combo_section").val();
+
+        var nvrMake = $("#nvr_make").val();
+        var dvrMake = $("#dvr_make").val();
+        var hddMake = $("#hdd_make").val();
+        var nvrSerial = $("#nvr_serial_no").val();
+        var dvrSerial = $("#dvr_serial_no").val();
+        var hddSerial = $("#hdd_serial_no").val();
+        var nvrPurchaseDate = $("#nvr_purchase_date").val();
+        var dvrPurchaseDate = $("#dvr_purchase_date").val();
+        var hddPurchaseDate = $("#hdd_purchase_date").val();
+        var nvrWarranty = $("#nvr_warranty").val();
+        var dvrWarranty = $("#dvr_warranty").val();
+        var hddWarranty = $("#hdd_warranty").val();
+        var nvrExDate = $("#nvr_ex_date").val();
+        var dvrExDate = $("#dvr_ex_date").val();
+        var hddExDate = $("#hdd_ex_date").val();
+        var status = true;
+
+    if(status){
+        $.ajax({
+            url: DOMAIN+"/includes/combo.php",
+            method: "POST",
+            data: formData,
+            success: function(response) {
+
+                var data = JSON.parse(response);
+        if(data.nvr_result === "NVR_ADDED") {
+            // Handle NVR added
+            $("#nvr_success").html("<span class='text-success'>NVR is successfully added</span><br>");
+        } else {
+            // Handle NVR not added
+            $("#nvr_success").html("<span class='text-danger'>NVR is not added</span>");
+        }
+
+        if(data.dvr_result === "DVR_ADDED") {
+            $("#dvr_success").html("<span class='text-success'>dvr is successfully added</span> <br>");
+        } else {
+            $("#dvr_success").html("<span class='text-danger'>dvr is not added</span>");
+        }
+
+        if(data.hdd_result === "HDD_ADDED") {
+            $("#hdd_success").html("<span class='text-success'>hdd is successfully added</span>");
+        } else {
+            $("#hdd_success").html("<span class='text-danger'>hdd is not added</span>");
+        }
+            }
+        })
+    }
+})
+
+    // camera form
 
     $("#camera_form").on("submit", function() {
         var camMake = $("#cam_make").val();
@@ -354,7 +438,7 @@ $(document).ready(function(){
             $("#ex_error").html("");
             status = true;
         }
-        if(status){  
+        if(status){
             $.ajax({
                 url: DOMAIN + "/includes/process.php",
                 method: "POST",
@@ -362,7 +446,6 @@ $(document).ready(function(){
                 success: function(data) {
                     if (data == "CAMERA_ADDED") {
                         $("#camera_success").html("<span class='text-success'>Camera Successfully added.</span>")
-                        loadData();
                     }else{
                         alert(data);
                     }
@@ -370,5 +453,50 @@ $(document).ready(function(){
             })
         }
     })
+
+
+// for active and de-active status and get data into table
+
+// Call the fetchData function when any dropdown value changes
+$('#combo_d_cat, #combo_c_depot, #combo_section').change(function() {
+    fetchData();
+});
+
+// Function to fetch data based on selected values
+function fetchData() {
+    var depot = $('#combo_d_cat').val();
+    var category = $('#combo_c_depot').val();
+    var section = $('#combo_section').val();
+
+    // Make an AJAX request
+    $.ajax({
+        url: DOMAIN + "/includes/process.php",
+        method: "POST",
+        data: { depot: depot, category: category, section: section },
+        success: function(data) {
+            $('#data_table tbody').empty(); // Clear table body before appending new data
+
+            var data = JSON.parse(data); // Parse JSON response
+
+            // Loop through the fetched data and append rows to the table
+            $.each(data, function(index, item) {
+                var row = '<tr>' +
+                    '<td>' + item.make + '</td>' +
+                    '<td>' + item.serial_no + '</td>' +
+                    '<td>' + item.purchase_date + '</td>' +
+                    '<td>' + item.warranty + '</td>' +
+                    '<td>' + item.expiry_date + '</td>' +
+                    '<td>' + item.status + '</td>' +
+                    '</tr>';
+
+                $("#data_table tbody").append(row); // Append row to table body
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
     
 })
