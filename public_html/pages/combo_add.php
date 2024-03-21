@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
     <div class="modal-content">
     <div class="modal-header">
-        <h1 class="modal-title fs-5">Add NVR</h1>
+        <h1 class="modal-title fs-5">Add NVR/DVR/HDD</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -15,12 +15,14 @@
                 <select name="combo_d_cat" class="form-control" id="combo_d_cat">
                     <option value="">Select depot</option>
                 </select>
+                <small id="depot_error"></small>
             </div>
             <div class="col-md-4">
                 <label class="form-label" for="child depot">category</label>
                 <select name="combo_c_depot" class="form-control" id="combo_c_depot">
                     <option value=""></option>
                 </select>
+                <small id="category_error"></small>
             </div>
 
             <div class="col-md-4">
@@ -30,124 +32,144 @@
                 <option value="1">section 1</option>
                 <option value="2">section 2</option>
                 </select>
+                <small id="section_error"></small>
             </div>
         </div>
 
 
         <hr>
 
-        <h4>NVR</h4>
+        <h4 id="nvr" name="nvr" >NVR</h4>
 
         <div class="mb-3 row">
             <div class="col-md-6">
-                <label for="make" class="form-label">Nvr make</label>
+                <label for="make" >Nvr make</label>
                 <input type="text" class="form-control" name="nvr_make" id="nvr_make">
+                <small id="n_make_error"></small>
             </div>
 
             <div class="col-md-6">
-                <label for="serial no" class="form-label">Nvr serial no</label>
+                <label for="serial no" >Nvr serial no</label>
                 <input type="number" class="form-control" name="nvr_serial_no" id="nvr_serial_no"> 
+                <small id="n_serial_error"></small>
             </div>
         </div>
         
-        <div class="mb-3 row">
-            <div class="col-md-6">
-                <label for="purchase date" class="form-label">Nvr purchase date</label>
-                <input type="date" class="form-control" name="nvr_purchase_date" id="nvr_purchase_date">
-            </div>
-        </div>
         
-        <div class="mb-3">
-            <label for="warranty">Nvr warranty</label>
-            <input type="number" class="form-control" name="nvr_warranty" id="nvr_warranty">
+        <div class="mb-3 row align-item-center">
+            <div class="col-md-5">
+                <label for="purchase date"  >Nvr purchase date</label>
+                <input type="date" class="form-control purchase-date-input" name="nvr_purchase_date" id="nvr_purchase_date">
+                <small id="n_purchase_error"></small>
+            </div>
 
+            <div class="col-md-5">
+                <label for="warranty" >Nvr warranty</label>
+                <input type="number" class="form-control warranty-input" name="nvr_warranty"    id="nvr_warranty">
+                <small id="n_warranty_error"></small>
+            </div>
+            <div class="col-md-2 mt-4">
+                <button type="button" class="btn btn-primary" id="nvr_cal">Calculate</button>
+            </div>
         </div>
         
         <div class="mb-3">
             <label for="expiry date">Nvr Expiry date</label>
-            <input type="date" class="form-control" name="nvr_ex_date" id="nvr_ex_date">
-
+            <input type="date" class="form-control expiry-date-input" name="nvr_ex_date" id="nvr_ex_date" >
+            <small id="n_ex_error"></small>
         </div>
 
 
         <hr>
 
-        <h4>DVR</h4>
+        <h4 id="dvr" name="dvr">DVR</h4>
 
         <div class="mb-3 row">
             <div class="col-md-6">
-                <label for="make" class="form-label">Dvr make</label>
+                <label for="make">Dvr make</label>
                 <input type="text" class="form-control" id="dvr_make" name="dvr_make">
+                <small id="d_make_error"></small>
             </div>
 
             <div class="col-md-6">
-                <label for="serial no" class="form-label">Dvr serial no</label>
+                <label for="serial no">Dvr serial no</label>
                 <input type="number" class="form-control" id="dvr_serial_no" name="dvr_serial_no"> 
+                <small id="d_serial_error"></small>
             </div>
         </div>
-        
-        <div class="mb-3 row">
-            <div class="col-md-6">
-                <label for="purchase date" class="form-label">Dvr purchase date</label>
-                <input type="date" class="form-control" id="dvr_purchase_date" name="dvr_purchase_date">
-            </div>
-        </div>
-        
-        <div class="mb-3">
-            <label for="warranty">Dvr warranty</label>
-            <input type="number" class="form-control" id="dvr_warranty" name="dvr_warranty">
 
+
+        <div class="mb-3 row">   
+            
+            <div class="col-md-5">
+                <label for="purchase date">Dvr purchase date</label>
+                <input type="date" class="form-control purchase-date-input" id="dvr_purchase_date" name="dvr_purchase_date">
+                <small id="d_purchase_error"></small>
+            </div>
+            <div class="col-md-5">
+                <label for="warranty">Dvr warranty</label>
+                <input type="number" class="form-control warranty-input" id="dvr_warranty"  name="dvr_warranty">
+                <small id="d_warranty_error"></small>
+            </div>
+            <div class="col-md-2 mt-4">
+                    <button type="button" class="btn btn-primary" id="dvr_cal">Calculate</button>
+            </div>
         </div>
-        
+
+
         <div class="mb-3">
             <label for="expiry date">Dvr Expiry date</label>
-            <input type="date" class="form-control" id="dvr_ex_date" name="dvr_ex_date">
-
+            <input type="date" class="form-control expiry-date-input" id="dvr_ex_date" name="dvr_ex_date" >
+            <small id="d_ex_error"></small>
         </div>
 
 
         <hr>
 
-        <h4>HDD</h4>
+        <h4 id="hdd" name="hdd">HDD</h4>
 
         <div class="mb-3 row">
             <div class="col-md-6">
-                <label for="make" class="form-label">Hdd make</label>
+                <label for="make">Hdd make</label>
                 <input type="text" class="form-control" id="hdd_make" name="hdd_make">
+                <small id="h_make_error"></small>
             </div>
 
             <div class="col-md-6">
-                <label for="serial no" class="form-label">Hdd serial no</label>
-                <input type="number" class="form-control" id="hdd_serial_no" name="hdd_serial_no"> 
+                <label for="serial no">Hdd serial no</label>
+                <input type="number" class="form-control" id="hdd_serial_no" name="hdd_serial_no">
+                <small id="h_serial_error"></small> 
             </div>
         </div>
         
         <div class="mb-3 row">
-            <div class="col-md-6">
-                <label for="purchase date" class="form-label">Hdd purchase date</label>
-                <input type="date" class="form-control" id="hdd_purchase_date" name="hdd_purchase_date">
+            <div class="col-md-5">
+                <label for="purchase date">Hdd purchase date</label>
+                <input type="date" class="form-control purchase-date-input" id="hdd_purchase_date" name="hdd_purchase_date">
+                <small id="h_purchase_error"></small>
             </div>
-        </div>
-        
-        <div class="mb-3">
-            <label for="warranty">Hdd warranty</label>
-            <input type="number" class="form-control" id="hdd_warranty" name="hdd_warranty"> 
+            <div class="col-md-5">
+                <label for="warranty">Hdd warranty</label>
+                <input type="number" class="form-control warranty-input" id="hdd_warranty"  name="hdd_warranty"> 
+                <small id="h_warranty_error"></small>
+            </div>
 
+            <div class="col-md-2 mt-4">
+                <button type="button" class="btn btn-primary" id="hdd_cal">Calculate</button>
+            </div>
         </div>
         
         <div class="mb-3">
             <label for="expiry date">Hdd Expiry date</label>
-            <input type="date" class="form-control" id="hdd_ex_date" name="hdd_ex_date">
-
+            <input type="date" class="form-control expiry-date-input" id="hdd_ex_date" name="hdd_ex_date" >
+            <small id="h_ex_error"></small>
         </div>
 
         
         
 
-        <button type="submit" class="btn btn-success">Submit</button><br>
-        <small id="nvr_success"></small>
-        <small id="dvr_success"></small>
-        <small id="hdd_success"></small>
+        <button type="submit" class="btn btn-success">Submit</button>
+        <small id="device_success"></small>
     </form>
         </div>
         <div class="modal-footer">

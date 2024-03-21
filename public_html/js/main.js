@@ -299,8 +299,8 @@ $(document).ready(function(){
         var formData = $(this).serialize();
         console.log("Form data:", formData);
 
-        var comboDepotCategory = $("#combo_d_cat").val();
-        var comboCategoryDepot = $("#combo_c_depot").val();
+        var comboD = $("#combo_d_cat").val();
+        var comboC = $("#combo_c_depot").val();
         var section = $("#combo_section").val();
 
         var nvrMake = $("#nvr_make").val();
@@ -318,39 +318,75 @@ $(document).ready(function(){
         var nvrExDate = $("#nvr_ex_date").val();
         var dvrExDate = $("#dvr_ex_date").val();
         var hddExDate = $("#hdd_ex_date").val();
-        var status = true;
+        var status = false;
 
+//calculating a expiry date
+
+
+
+
+        if(comboD == "" ){
+            $("#combo_d_cat").addClass("border-danger");
+            $("#depot_error").html("<span class='text-danger'>Please Select Depot</span>");
+            status = false
+        }else{
+            $("#combo_d_cat").removeClass("border-danger");
+            $("#depot_error").html("");
+            status = true;
+        }
     if(status){
         $.ajax({
-            url: DOMAIN+"/includes/combo.php",
+            url: DOMAIN+"/includes/process.php",
             method: "POST",
             data: formData,
-            success: function(response) {
-
-                var data = JSON.parse(response);
-        if(data.nvr_result === "NVR_ADDED") {
-            // Handle NVR added
-            $("#nvr_success").html("<span class='text-success'>NVR is successfully added</span><br>");
-        } else {
-            // Handle NVR not added
-            $("#nvr_success").html("<span class='text-danger'>NVR is not added</span>");
-        }
-
-        if(data.dvr_result === "DVR_ADDED") {
-            $("#dvr_success").html("<span class='text-success'>dvr is successfully added</span> <br>");
-        } else {
-            $("#dvr_success").html("<span class='text-danger'>dvr is not added</span>");
-        }
-
-        if(data.hdd_result === "HDD_ADDED") {
-            $("#hdd_success").html("<span class='text-success'>hdd is successfully added</span>");
-        } else {
-            $("#hdd_success").html("<span class='text-danger'>hdd is not added</span>");
-        }
+            success: function(data) {
+                console.log(data);
+                if(data.trim() === '"DEVICE_ADDED"'){
+                    $("#device_success").html("<span class='text-success'>NVR/DVR/HDD successfully added</span>");
+                }else{
+                    alert("error");
+                }
             }
         })
     }
 })
+
+
+//expiry date calculation
+
+
+function calculateExpiryDate(purchaseDate,warranty){
+    var expiryDate = new Date(purchaseDate);
+    expiryDate.setFullYear(expiryDate.getFullYear() + parseInt(warranty));
+    return expiryDate.toISOString().split('T')[0];
+}
+
+$("#nvr_cal").on("click", function() {
+    var nvrPurchaseDate = $("#nvr_purchase_date").val();
+    var nvrWarranty = $("#nvr_warranty").val();
+
+    if (nvrWarranty && nvrPurchaseDate) {
+        $("#nvr_ex_date").val(calculateExpiryDate(nvrPurchaseDate, nvrWarranty));
+    }
+});
+$("#dvr_cal").on("click", function() {
+    var dvrPurchaseDate = $("#dvr_purchase_date").val();
+    var dvrWarranty = $("#dvr_warranty").val();
+
+    if (dvrWarranty && dvrPurchaseDate) {
+        $("#dvr_ex_date").val(calculateExpiryDate(dvrPurchaseDate, dvrWarranty));
+    }
+});
+$("#hdd_cal").on("click", function() {
+    var hddPurchaseDate = $("#hdd_purchase_date").val();
+    var hddWarranty = $("#hdd_warranty").val();
+
+    if (hddWarranty && hddPurchaseDate) {
+        $("#hdd_ex_date").val(calculateExpiryDate(hddPurchaseDate, hddWarranty));
+    }
+});
+
+
 
     // camera form
 
@@ -454,49 +490,6 @@ $(document).ready(function(){
         }
     })
 
-
-// for active and de-active status and get data into table
-
-// Call the fetchData function when any dropdown value changes
-$('#combo_d_cat, #combo_c_depot, #combo_section').change(function() {
-    fetchData();
-});
-
-// Function to fetch data based on selected values
-function fetchData() {
-    var depot = $('#combo_d_cat').val();
-    var category = $('#combo_c_depot').val();
-    var section = $('#combo_section').val();
-
-    // Make an AJAX request
-    $.ajax({
-        url: DOMAIN + "/includes/process.php",
-        method: "POST",
-        data: { depot: depot, category: category, section: section },
-        success: function(data) {
-            $('#data_table tbody').empty(); // Clear table body before appending new data
-
-            var data = JSON.parse(data); // Parse JSON response
-
-            // Loop through the fetched data and append rows to the table
-            $.each(data, function(index, item) {
-                var row = '<tr>' +
-                    '<td>' + item.make + '</td>' +
-                    '<td>' + item.serial_no + '</td>' +
-                    '<td>' + item.purchase_date + '</td>' +
-                    '<td>' + item.warranty + '</td>' +
-                    '<td>' + item.expiry_date + '</td>' +
-                    '<td>' + item.status + '</td>' +
-                    '</tr>';
-
-                $("#data_table tbody").append(row); // Append row to table body
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error(error);
-        }
-    });
-}
 
     
 })

@@ -50,7 +50,6 @@ if(isset($_POST["cam_make"]) && isset($_POST["serial_no"]) && isset($_POST["mega
     exit();
 }
 
-// if (isset($response)) {
 
     $response = array();
 
@@ -62,46 +61,76 @@ if(isset($_POST["cam_make"]) && isset($_POST["serial_no"]) && isset($_POST["mega
     
         $dbOperation = new DBoperation();
     
+
+        $device_status = false;
+
         // Add NVR data
         if(isset($_POST["nvr_make"]) && isset($_POST["nvr_serial_no"]) && isset($_POST["nvr_purchase_date"]) && isset($_POST["nvr_warranty"]) && isset($_POST["nvr_ex_date"])) {
-            $nvr_make = $_POST["nvr_make"];
-            $nvr_serial_no = $_POST["nvr_serial_no"];
-            $nvr_purchase_date = $_POST["nvr_purchase_date"];
-            $nvr_warranty = $_POST["nvr_warranty"];
-            $nvr_ex_date = $_POST["nvr_ex_date"];
+            $device_category = "nvr";
+            $make = $_POST["nvr_make"];
+            $serial_no = $_POST["nvr_serial_no"];
+            $purchase_date = $_POST["nvr_purchase_date"];
+            $warranty = $_POST["nvr_warranty"];
+            $ex_date = $_POST["nvr_ex_date"];
     
-            $result_nvr = $dbOperation->addNvr($section, $nvr_make, $nvr_serial_no, $nvr_purchase_date, $depot, $category, $nvr_warranty, $nvr_ex_date);
-            $response['nvr_result'] = $result_nvr;
+            $result_nvr = $dbOperation->addDevice($device_category,$section, $make, $serial_no, $purchase_date, $depot, $category, $warranty, $ex_date);
+    
+            if($result_nvr == "DEVICE_ADDED"){
+                $device_status = true;
+            }else{
+                $device_status = false;
+            }
         }
     
         // Add DVR data
         if(isset($_POST["dvr_make"]) && isset($_POST["dvr_serial_no"]) && isset($_POST["dvr_purchase_date"]) && isset($_POST["dvr_warranty"]) && isset($_POST["dvr_ex_date"])) {
+        
+            $device_category = "dvr";
             $dvr_make = $_POST["dvr_make"];
             $dvr_serial_no = $_POST["dvr_serial_no"];
             $dvr_purchase_date = $_POST["dvr_purchase_date"];
             $dvr_warranty = $_POST["dvr_warranty"];
             $dvr_ex_date = $_POST["dvr_ex_date"];
     
-            $result_dvr = $dbOperation->addDvr($section, $dvr_make, $dvr_serial_no, $dvr_purchase_date, $depot, $category, $dvr_warranty, $dvr_ex_date);
-            $response['dvr_result'] = $result_dvr;
+            $result_dvr = $dbOperation->addDevice($device_category,$section, $dvr_make, $dvr_serial_no, $dvr_purchase_date, $depot, $category, $dvr_warranty, $dvr_ex_date);
+            
+            if($result_dvr == "DEVICE_ADDED"){
+                $device_status = true;
+            }else{
+                $device_status = false;
+            }
         }
     
         // Add HDD data
         if(isset($_POST["hdd_make"]) && isset($_POST["hdd_serial_no"]) && isset($_POST["hdd_purchase_date"]) && isset($_POST["hdd_warranty"]) && isset($_POST["hdd_ex_date"])) {
+            $device_category = "hdd";
             $hdd_make = $_POST["hdd_make"];
             $hdd_serial_no = $_POST["hdd_serial_no"];
             $hdd_purchase_date = $_POST["hdd_purchase_date"];
             $hdd_warranty = $_POST["hdd_warranty"];
             $hdd_ex_date = $_POST["hdd_ex_date"];
     
-            $result_hdd = $dbOperation->addHdd($section, $hdd_make, $hdd_serial_no, $hdd_purchase_date, $depot, $category, $hdd_warranty, $hdd_ex_date);
-            $response['hdd_result'] = $result_hdd;
+            $result_hdd = $dbOperation->addDevice($device_category,$section, $hdd_make, $hdd_serial_no, $hdd_purchase_date, $depot, $category, $hdd_warranty, $hdd_ex_date);
+            
+            if($result_hdd == "DEVICE_ADDED"){
+                $device_status = true;
+            }else{
+                $device_status = false;
+            }
         }
+
+        if($device_status){
+            $response = "DEVICE_ADDED";
+        }else{
+            $response = "ERROR";
+        }
+
         echo json_encode($response);
+        
     }
 
 
-// }
+
 // to getCategory
 
 if(isset($_POST["getCategory"])){
@@ -148,36 +177,5 @@ if (isset($_POST['category_name'])) {
 }
 
 
-// Check if depot, category, and section are set in the POST request
-if(isset($_POST["combo_d_cat"]) && isset($_POST["combo_c_depot"]) && isset($_POST["combo_section"])) {
-    // Retrieve depot, category, and section from POST data
-    $depot = $_POST["combo_d_cat"];
-    $category = $_POST["combo_c_cat"];
-    $section = $_POST["combo_section"];
 
-    // Create an instance of DBoperation class
-    $dbOperation = new DBoperation();
-
-    // Fetch NVR data based on depot, category, and section
-    $nvrData = $dbOperation->fetchNvrData($depot, $category, $section);
-
-    // Fetch DVR data based on depot, category, and section
-    $dvrData = $dbOperation->fetchDvrData($depot, $category, $section);
-
-    // Fetch HDD data based on depot, category, and section
-    $hddData = $dbOperation->fetchHddData($depot, $category, $section);
-
-    // Combine all fetched data into a single array
-    $responseData = array(
-        "nvrData" => $nvrData,
-        "dvrData" => $dvrData,
-        "hddData" => $hddData
-    );
-
-    // Send JSON response with the combined data
-    echo json_encode($responseData);
-} else {
-    // Send JSON response with an error message if depot, category, or section is not set in the POST request
-    echo json_encode(["error" => "Depot, category, and section must be provided"]);
-}
 ?>
