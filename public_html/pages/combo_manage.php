@@ -22,28 +22,20 @@
 <form method="post" class="form-horizontal">
 <div class="dropdown">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-5">
                 <label for="depot">Depot</label>
                 <select name="combo_d_cat" class="form-control" id="combo_d_cat">
                     <option value="">Select depot</option>
                 </select>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-5">
                 <label for="child depot">category</label>
                 <select name="combo_c_depot" class="form-control" id="combo_c_depot">
                     <option value=""></option>
                 </select>
         </div>
-        <div class="col-md-3">
-                <label for="section" >section</label>
-                <select class="form-control" name="combo_section" id="combo_section">
 
-                <option value="1">section 1</option>
-                <option value="2">section 2</option>
-                </select>
-        </div>
-
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label></label>
             <input type="submit" name="submit" class="btn btn-primary mt-4" id="submit" value="submit">
         </div>
@@ -96,12 +88,11 @@
 
     $initial_page = ($page_number-1) * $limit;
 
-    if(isset($_POST['submit']) && isset($_POST['combo_d_cat']) && isset($_POST['combo_c_depot']) && isset($_POST['combo_section'])){
+    if(isset($_POST['submit']) && isset($_POST['combo_d_cat']) && isset($_POST['combo_c_depot'])){
         $depot = $_POST['combo_d_cat'];
-        $category = $_POST['combo_c_depot'];
-        $section = $_POST['combo_section']; 
+        $category = $_POST['combo_c_depot']; 
 
-        $getQuery = "SELECT device_collection.device_category, device_collection.section, device_collection.depot, device_collection.category, device_collection.make, device_collection.serial_no, device_collection.purchase_date, device_collection.expiery_date, device_collection.ins_date FROM device_collection JOIN category ON category.pid = device_collection.depot JOIN child_category ON child_category.cid = device_collection.category WHERE category.pid = $depot AND child_category.cid = $category AND device_collection.section = $section";
+        $getQuery = "SELECT device_collection.device_category, device_collection.section, device_collection.depot, device_collection.category, device_collection.make, device_collection.serial_no, device_collection.purchase_date, device_collection.expiery_date, device_collection.ins_date FROM device_collection JOIN category ON category.pid = device_collection.depot JOIN child_category ON child_category.cid = device_collection.category WHERE category.pid = $depot AND child_category.cid = $category ";
 
         getData($getQuery);
 
