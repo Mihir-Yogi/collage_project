@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active text-white " aria-current="page" href="#">Home</a>
+          <a class="nav-link active text-white " aria-current="page" href="../dashboard.php">Home</a>
         </li>
 
         <?php 

@@ -120,7 +120,7 @@ if(isset($_POST["cam_make"]) && isset($_POST["serial_no"]) && isset($_POST["mega
         }
 
         if($device_status){
-            $response = "DEVICE_ADDED";
+            $response =  "DEVICE_ADDED";
         }else{
             $response = "ERROR";
         }

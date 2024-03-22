@@ -194,6 +194,8 @@ $(document).ready(function(){
             }
         });
     });
+
+
     
 // category form
     $("#category_form").on("submit", function() {
@@ -320,11 +322,6 @@ $(document).ready(function(){
         var hddExDate = $("#hdd_ex_date").val();
         var status = false;
 
-//calculating a expiry date
-
-
-
-
         if(comboD == "" ){
             $("#combo_d_cat").addClass("border-danger");
             $("#depot_error").html("<span class='text-danger'>Please Select Depot</span>");
@@ -339,8 +336,8 @@ $(document).ready(function(){
             url: DOMAIN+"/includes/process.php",
             method: "POST",
             data: formData,
+            
             success: function(data) {
-                console.log(data);
                 if(data.trim() === '"DEVICE_ADDED"'){
                     $("#device_success").html("<span class='text-success'>NVR/DVR/HDD successfully added</span>");
                 }else{
@@ -491,5 +488,7 @@ $("#hdd_cal").on("click", function() {
     })
 
 
-    
+    // for active - de-active table
+
+    $("")
 })
