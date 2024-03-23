@@ -136,6 +136,8 @@ function getData($sql){
             echo '<td>'.$row['purchase_date'].'</td>';
             echo '<td>'.$row['expiery_date'].'</td>';
             echo '<td>'.$row['ins_date'].'</td>';
+            echo '<td>';
+            echo '<p>  <a href="#" class="btn btn-success">ON</a>  </p>';'</td>';
             
             echo ' <tr>';
         } }

@@ -47,15 +47,15 @@ class DBoperation {
     }
 
     //add camera
-    public function addCamera($cam_make,$serial_no,$mega_pixel,$purchase_date,$camera_d_cat,$camera_c_cat,$warranty,$ex_date){
-        $pre_stmt = $this->con->prepare("INSERT INTO `camera_collection` (`make`,`serial_no`,`mega_pixel`,`purchase_date`,`depot`,`category`,`warranty`,`ex_date`) 
-        VALUES (?,?,?,?,?,?,?,?)");
+    public function addCamera($cam_make,$serial_no,$mega_pixel,$purchase_date,$camera_d_cat,$camera_c_cat,$warranty,$ex_date,$section){
+        $pre_stmt = $this->con->prepare("INSERT INTO `camera_collection` (`make`,`serial_no`,`mega_pixel`,`purchase_date`,`depot`,`category`,`warranty`,`ex_date`,`section`) 
+        VALUES (?,?,?,?,?,?,?,?,?)");
         
         if (!$pre_stmt) {
             die("Error in SQL query: " . $this->con->error);
         }
 
-        $pre_stmt->bind_param("siisssis",$cam_make,$serial_no,$mega_pixel,$purchase_date,$camera_d_cat,$camera_c_cat,$warranty,$ex_date);
+        $pre_stmt->bind_param("siisssisi",$cam_make,$serial_no,$mega_pixel,$purchase_date,$camera_d_cat,$camera_c_cat,$warranty,$ex_date,$section);
         $result =$pre_stmt->execute() or die($this->con->error);
         if($result){
             return "CAMERA_ADDED";
@@ -99,6 +99,7 @@ class DBoperation {
             return "error";
         }
     }
+
     public function getAllRecord($table){
         $pre_stmt = $this->con->prepare("SELECT * FROM category");
         $pre_stmt->execute() or die($this->con->error);

@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-    <form  id="new_hdd" onsubmit="return false">
+    <form  id="new_hdd_form" onsubmit="return false">
 
     <div class="mb-3 row">
             <div class="col-md-4">
@@ -26,7 +26,7 @@
 
             <div class="col-md-4">
                 <label for="section" class="form-label" >section</label>
-                <select class="form-control" name="combo_section" id="combo_section">
+                <select class="form-control" name="new_hdd_section" id="new_hdd_section">
 
                 <option value="1">section 1</option>
                 <option value="2">section 2</option>
@@ -38,13 +38,13 @@
         <div class="mb-3 row">
             <div class="col-md-6">
                 <label for="make">Hdd make</label>
-                <input type="text" class="form-control" id="hdd_make" name="hdd_make">
+                <input type="text" class="form-control" id="new_hdd_make" name="new_hdd_make">
                 <small id="h_make_error"></small>
             </div>
 
             <div class="col-md-6">
                 <label for="serial no">Hdd serial no</label>
-                <input type="number" class="form-control" id="hdd_serial_no" name="hdd_serial_no">
+                <input type="number" class="form-control" id="new_hdd_serial_no" name="new_hdd_serial_no">
                 <small id="h_serial_error"></small> 
             </div>
         </div>
@@ -52,12 +52,12 @@
         <div class="mb-3 row">
             <div class="col-md-5">
                 <label for="purchase date">Hdd purchase date</label>
-                <input type="date" class="form-control purchase-date-input" id="hdd_purchase_date" name="hdd_purchase_date">
+                <input type="date" class="form-control purchase-date-input" id="new_hdd_purchase_date" name="new_hdd_purchase_date">
                 <small id="h_purchase_error"></small>
             </div>
             <div class="col-md-5">
                 <label for="warranty">Hdd warranty</label>
-                <input type="number" class="form-control warranty-input" id="hdd_warranty"  name="hdd_warranty"> 
+                <input type="number" class="form-control warranty-input" id="new_hdd_warranty"  name="new_hdd_warranty"> 
                 <small id="h_warranty_error"></small>
             </div>
 
@@ -68,12 +68,13 @@
         
         <div class="mb-3">
             <label for="expiry date">Hdd Expiry date</label>
-            <input type="date" class="form-control expiry-date-input" id="hdd_ex_date" name="hdd_ex_date" >
+            <input type="date" class="form-control expiry-date-input" id="new_hdd_ex_date" name="new_hdd_ex_date" >
             <small id="h_ex_error"></small>
         </div>
 
         
         <button type="submit" class="btn btn-success">Submit</button>
+        <button type="button" id="clear_hdd" class="btn btn-danger">clear</button>
         <small id="hdd_success"></small>
     </form>
         </div>

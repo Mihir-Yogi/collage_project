@@ -311,8 +311,8 @@ $(document).ready(function(){
 
 
     //for clear button
-    $("#clear_button").on("click", function() {
-        // Clear all input fields
+    $("#clear_button,#clear_combo,#clear_nvr,#clear_dvr,#clear_hdd").on("click", function() {
+        // Clear camera form
         $("#cam_make").val("");
         $("#serial_no").val("");
         $("#mega_pixel").val("");
@@ -321,6 +321,35 @@ $(document).ready(function(){
         $("#camera_c_depot").val("");
         $("#warranty").val("");
         $("#ex_date").val("");
+
+        // Clear nvr/dvr/hdd combo form
+        $("#combo_d_cat").val("");
+        $("#combo_c_depot").val("");
+        $("#combo_section").val("");
+        $("#nvr_make").val("");
+        $("#dvr_make").val("");
+        $("#hdd_make").val("");
+        $("#nvr_serial_no").val("");
+        $("#dvr_serial_no").val("");
+        $("#hdd_serial_no").val("");
+        $("#nvr_purchase_date").val("");
+        $("#dvr_purchase_date").val("");
+        $("#hdd_purchase_date").val("");
+        $("#nvr_warranty").val("");
+        $("#dvr_warranty").val("");
+        $("#hdd_warranty").val("");
+        $("#nvr_ex_date").val("");
+        $("#dvr_ex_date").val("");
+        $("#hdd_ex_date").val("");
+
+        // Clear new_nvr/dvr/hdd
+
+        $("#active_n_d").val("");
+        $("#active_d_d").val("");
+        $("#active_h_d").val("");
+        $("#active_n_c").val("");
+        $("#active_d_c").val("");
+        $("#active_h_c").val("");
         
         // Clear any error messages
         $("small[id$='_error']").empty();
@@ -448,6 +477,38 @@ $("#hdd_cal").on("click", function() {
         $("#hdd_ex_date").val(calculateExpiryDate(hddPurchaseDate, hddWarranty));
     }
 });
+$("#cal").on("click", function() {
+    var hddPurchaseDate = $("#purchase_date").val();
+    var hddWarranty = $("#warranty").val();
+
+    if (hddWarranty && hddPurchaseDate) {
+        $("#ex_date").val(calculateExpiryDate(hddPurchaseDate, hddWarranty));
+    }
+});
+$("#nvr_cal").on("click", function() {
+    var hddPurchaseDate = $("#new_nvr_purchase_date").val();
+    var hddWarranty = $("#new_nvr_warranty").val();
+
+    if (hddWarranty && hddPurchaseDate) {
+        $("#new_nvr_ex_date").val(calculateExpiryDate(hddPurchaseDate, hddWarranty));
+    }
+});
+$("#dvr_cal").on("click", function() {
+    var hddPurchaseDate = $("#new_dvr_purchase_date").val();
+    var hddWarranty = $("#new_dvr_warranty").val();
+
+    if (hddWarranty && hddPurchaseDate) {
+        $("#new_dvr_ex_date").val(calculateExpiryDate(hddPurchaseDate, hddWarranty));
+    }
+});
+$("#hdd_cal").on("click", function() {
+    var hddPurchaseDate = $("#new_hdd_purchase_date").val();
+    var hddWarranty = $("#new_hdd_warranty").val();
+
+    if (hddWarranty && hddPurchaseDate) {
+        $("#new_hdd_ex_date").val(calculateExpiryDate(hddPurchaseDate, hddWarranty));
+    }
+});
 
 
 
@@ -462,6 +523,7 @@ $("#hdd_cal").on("click", function() {
         var cameraCDepot = $("#camera_c_depot").val();
         var warranty = $("#warranty").val();
         var exDate = $("#ex_date").val();
+        var section = $("#cam_section").val();
         var status = false;
 
     
@@ -535,6 +597,15 @@ $("#hdd_cal").on("click", function() {
         } else{
             $("#ex_date").removeClass("border-danger");
             $("#ex_error").html("");
+            status = true;
+        }
+        if (section == ""){
+            $("#cam_section").addClass("border-danger");
+            $("#section_error").html("<span class='text-danger'>Please Enter Section</span>");
+            status = false ;
+        } else{
+            $("#cam_section").removeClass("border-danger");
+            $("#section_error").html("");
             status = true;
         }
         if(status){

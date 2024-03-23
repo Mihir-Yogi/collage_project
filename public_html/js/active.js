@@ -34,22 +34,24 @@ $(document).ready(function(){
 
     var DOMAIN = "http://localhost/collage_project/public_html";
 
-$("#new_nvr").on("submit",function(){
+$("#new_nvr_form").on("submit",function(){
 
 
     var formData = {
         active_n_d: $("#active_n_d").val(),
         active_n_c: $("#active_n_c").val(),
-        combo_section: $("#combo_section").val(),
-        nvr_make: $("#nvr_make").val(),
-        nvr_serial_no: $("#nvr_serial_no").val(),
-        nvr_purchase_date: $("#nvr_purchase_date").val(),
-        nvr_warranty: $("#nvr_warranty").val(),
-        nvr_ex_date: $("#nvr_ex_date").val()
+        new_nvr_section: $("#new_nvr_section").val(),
+        new_nvr_make: $("#new_nvr_make").val(),
+        new_nvr_serial_no: $("#new_nvr_serial_no").val(),
+        new_nvr_purchase_date: $("#new_nvr_purchase_date").val(),
+        new_nvr_warranty: $("#new_nvr_warranty").val(),
+        new_nvr_ex_date: $("#new_nvr_ex_date").val()
     };
+    console.log(formData);
+
 
         $.ajax({
-            url : DOMAIN + "/includes/process.php",
+            url : DOMAIN + "/includes/active_form.php",
             method : "POST",
             data : formData,
             success : function(data){
@@ -62,50 +64,25 @@ $("#new_nvr").on("submit",function(){
         })
     })
 
-$("#new_hdd").on("submit",function(){
+
+    
+$("#new_dvr_form").on("submit",function(){
 
 
     var formData = {
-        active_n_d: $("#active_h_d").val(),
-        active_n_c: $("#active_h_c").val(),
-        combo_section: $("#combo_section").val(),
-        nvr_make: $("#hdd_make").val(),
-        nvr_serial_no: $("#hdd_serial_no").val(),
-        nvr_purchase_date: $("#hdd_purchase_date").val(),
-        nvr_warranty: $("#hdd_warranty").val(),
-        nvr_ex_date: $("#hdd_ex_date").val()
+        active_d_d: $("#active_d_d").val(),
+        active_d_c: $("#active_d_c").val(),
+        new_dvr_section: $("#new_dvr_section").val(),
+        new_dvr_make: $("#new_dvr_make").val(),
+        new_dvr_serial_no: $("#new_dvr_serial_no").val(),
+        new_dvr_purchase_date: $("#new_dvr_purchase_date").val(),
+        new_dvr_warranty: $("#new_dvr_warranty").val(),
+        new_dvr_ex_date: $("#new_dvr_ex_date").val()
     };
+    console.log(formData);
 
         $.ajax({
-            url : DOMAIN + "/includes/process.php",
-            method : "POST",
-            data : formData,
-            success : function(data){
-                if(data.trim() === "DEVICE_ADDED"){
-                    $("#hdd_success").html("<span class='text-success'>new HDDsuccessfully replaced</span>");
-                }else{
-                    alert("error");
-                }
-            }
-        })
-    })
-
-$("#new_dvr").on("submit",function(){
-
-
-    var formData = {
-        active_n_d: $("#active_d_d").val(),
-        active_n_c: $("#active_d_c").val(),
-        combo_section: $("#combo_section").val(),
-        nvr_make: $("#dvr_make").val(),
-        nvr_serial_no: $("#dvr_serial_no").val(),
-        nvr_purchase_date: $("#dvr_purchase_date").val(),
-        nvr_warranty: $("#dvr_warranty").val(),
-        nvr_ex_date: $("#dvr_ex_date").val()
-    };
-
-        $.ajax({
-            url : DOMAIN + "/includes/process.php",
+            url : DOMAIN + "/includes/active_form.php",
             method : "POST",
             data : formData,
             success : function(data){
@@ -117,6 +94,35 @@ $("#new_dvr").on("submit",function(){
             }
         })
     })
+
+$("#new_hdd_form").on("submit",function(){
+
+    var formData = {
+        active_h_d: $("#active_h_d").val(),
+        active_h_c: $("#active_h_c").val(),
+        new_hdd_section: $("#new_hdd_section").val(),
+        new_hdd_make: $("#new_hdd_make").val(),
+        new_hdd_serial_no: $("#new_hdd_serial_no").val(),
+        new_hdd_purchase_date: $("#new_hdd_purchase_date").val(),
+        new_hdd_warranty: $("#new_hdd_warranty").val(),
+        new_hdd_ex_date: $("#new_hdd_ex_date").val()
+    };
+    console.log(formData);
+
+        $.ajax({
+            url : DOMAIN + "/includes/active_form.php",
+            method : "POST",
+            data : formData,
+            success : function(data){
+                if(data.trim() === "DEVICE_ADDED"){
+                    $("#hdd_success").html("<span class='text-success'>new HDD successfully replaced</span>");
+                }else{
+                    alert("error");
+                }
+            }
+        })
+    })
+
 
 })
 

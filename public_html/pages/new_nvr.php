@@ -7,7 +7,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-    <form onsubmit="return false">
+    <form id="new_nvr_form" onsubmit="return false">
 
         <div class="mb-3 row">
             <div class="col-md-4">
@@ -27,7 +27,7 @@
 
             <div class="col-md-4">
                 <label for="section" class="form-label" >section</label>
-                <select class="form-control" name="combo_section" id="combo_section">
+                <select class="form-control" name="new_nvr_section" id="new_nvr_section">
 
                 <option value="1">section 1</option>
                 <option value="2">section 2</option>
@@ -39,13 +39,13 @@
         <div class="mb-3 row">
             <div class="col-md-6">
                 <label for="make" >Nvr make</label>
-                <input type="text" class="form-control" name="nvr_make" id="nvr_make">
+                <input type="text" class="form-control" name="new_nvr_make" id="new_nvr_make">
                 <small id="n_make_error"></small>
             </div>
 
             <div class="col-md-6">
                 <label for="serial no" >Nvr serial no</label>
-                <input type="number" class="form-control" name="nvr_serial_no" id="nvr_serial_no"> 
+                <input type="number" class="form-control" name="new_nvr_serial_no" id="new_nvr_serial_no"> 
                 <small id="n_serial_error"></small>
             </div>
         </div>
@@ -54,13 +54,13 @@
         <div class="mb-3 row align-item-center">
             <div class="col-md-5">
                 <label for="purchase date"  >Nvr purchase date</label>
-                <input type="date" class="form-control purchase-date-input" name="nvr_purchase_date" id="nvr_purchase_date">
+                <input type="date" class="form-control purchase-date-input" name="new_nvr_purchase_date" id="new_nvr_purchase_date">
                 <small id="n_purchase_error"></small>
             </div>
 
             <div class="col-md-5">
                 <label for="warranty" >Nvr warranty</label>
-                <input type="number" class="form-control warranty-input" name="nvr_warranty"    id="nvr_warranty">
+                <input type="number" class="form-control warranty-input" name="new_nvr_warranty"    id="new_nvr_warranty">
                 <small id="n_warranty_error"></small>
             </div>
             <div class="col-md-2 mt-4">
@@ -70,7 +70,7 @@
         
         <div class="mb-3">
             <label for="expiry date">Nvr Expiry date</label>
-            <input type="date" class="form-control expiry-date-input" name="nvr_ex_date" id="nvr_ex_date" >
+            <input type="date" class="form-control expiry-date-input" name="new_nvr_ex_date" id="new_nvr_ex_date" >
             <small id="n_ex_error"></small>
         </div>
 
@@ -80,6 +80,7 @@
         
 
         <button type="submit" class="btn btn-success">Submit</button>
+        <button type="button" id="clear_nvr" class="btn btn-danger">clear</button>
         <small id="nvr_success"></small>
     </form>
         </div>

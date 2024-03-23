@@ -169,7 +169,9 @@
         
 
         <button type="submit" class="btn btn-success">Submit</button>
+        <button type="button" id="clear_combo" class="btn btn-danger">clear</button>
         <small id="device_success"></small>
+
     </form>
         </div>
         <div class="modal-footer">

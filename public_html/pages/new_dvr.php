@@ -7,8 +7,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-    <form id="new_dvr" onsubmit="return false">
-    <div class="mb-3 row">
+    <form id="new_dvr_form" onsubmit="return false">
+
+        <div class="mb-3 row">
             <div class="col-md-4">
                 <label class="form-label" for="depot">Depot</label>
                 <select name="active_d_d" class="form-control" id="active_d_d">
@@ -26,7 +27,7 @@
 
             <div class="col-md-4">
                 <label for="section" class="form-label" >section</label>
-                <select class="form-control" name="active_section" id="combo_section">
+                <select class="form-control" name="new_dvr_section" id="new_dvr_section">
 
                 <option value="1">section 1</option>
                 <option value="2">section 2</option>
@@ -35,48 +36,51 @@
             </div>
         </div>
 
-        <hr>
-
         <div class="mb-3 row">
             <div class="col-md-6">
-                <label for="make">Dvr make</label>
-                <input type="text" class="form-control" id="dvr_make" name="dvr_make">
-                <small id="d_make_error"></small>
+                <label for="make" >dvr make</label>
+                <input type="text" class="form-control" name="new_dvr_make" id="new_dvr_make">
+                <small id="n_make_error"></small>
             </div>
 
             <div class="col-md-6">
-                <label for="serial no">Dvr serial no</label>
-                <input type="number" class="form-control" id="dvr_serial_no" name="dvr_serial_no"> 
-                <small id="d_serial_error"></small>
+                <label for="serial no" >dvr serial no</label>
+                <input type="number" class="form-control" name="new_dvr_serial_no" id="new_dvr_serial_no"> 
+                <small id="n_serial_error"></small>
             </div>
         </div>
-
-
-        <div class="mb-3 row">   
-            
+        
+        
+        <div class="mb-3 row align-item-center">
             <div class="col-md-5">
-                <label for="purchase date">Dvr purchase date</label>
-                <input type="date" class="form-control purchase-date-input" id="dvr_purchase_date" name="dvr_purchase_date">
-                <small id="d_purchase_error"></small>
+                <label for="purchase date"  >dvr purchase date</label>
+                <input type="date" class="form-control purchase-date-input" name="new_dvr_purchase_date" id="new_dvr_purchase_date">
+                <small id="n_purchase_error"></small>
             </div>
+
             <div class="col-md-5">
-                <label for="warranty">Dvr warranty</label>
-                <input type="number" class="form-control warranty-input" id="dvr_warranty"  name="dvr_warranty">
+                <label for="warranty" >Nvr warranty</label>
+                <input type="number" class="form-control warranty-input" name="new_dvr_warranty"    id="new_dvr_warranty">
                 <small id="d_warranty_error"></small>
             </div>
             <div class="col-md-2 mt-4">
-                    <button type="button" class="btn btn-primary" id="dvr_cal">Calculate</button>
+                <button type="button" class="btn btn-primary" id="dvr_cal">Calculate</button>
             </div>
         </div>
-
-
+        
         <div class="mb-3">
-            <label for="expiry date">Dvr Expiry date</label>
-            <input type="date" class="form-control expiry-date-input" id="dvr_ex_date" name="dvr_ex_date" >
-            <small id="d_ex_error"></small>
+            <label for="expiry date">Nvr Expiry date</label>
+            <input type="date" class="form-control expiry-date-input" name="new_dvr_ex_date" id="new_dvr_ex_date" >
+            <small id="n_ex_error"></small>
         </div>
 
+
+        
+        
+        
+
         <button type="submit" class="btn btn-success">Submit</button>
+        <button type="button" id="clear_dvr" class="btn btn-danger">clear</button>
         <small id="dvr_success"></small>
     </form>
         </div>
