@@ -79,7 +79,7 @@ include_once("./database/constant.php");
                                 <h5 class="card-title">NVR/DVR/HDD</h5>
                                 <small>Here you can add and manage NVR/DVR AND HDD</small>
                                 <div class="mt-2">
-                                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#combo">Add</a>
+                                <a href="#" class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#combo">Add</a>
                                 <a href="pages/combo_manage.php" class="btn btn-primary">Manage</a>
                                 </div>
                             </div>

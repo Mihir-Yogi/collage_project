@@ -66,15 +66,32 @@ class DBoperation {
 
     //add nvr 
 
-    public function addDevice($device_category,$section,$make,$serial_no,$purchase_date,$depot,$category,$warranty,$ex_date){
-        $pre_stmt = $this->con->prepare("INSERT INTO `device_collection`(`device_category`,`section`, `make`, `serial_no`, `purchase_date`, `depot`, `category`, `warrenty`, `expiery_date`)
-        VALUES (?,?,?,?,?,?,?,?,?)");
+    public function addDevice($device_category,$section,$make,$serial_no,$purchase_date,$depot,$category,$warranty,$ex_date,$status){
+        $pre_stmt = $this->con->prepare("INSERT INTO `device_collection`(`device_category`,`section`, `make`, `serial_no`, `purchase_date`, `depot`, `category`, `warrenty`, `expiery_date`,`status`)
+        VALUES (?,?,?,?,?,?,?,?,?,?)");
 
         if(!$pre_stmt){
             die("Error in SQL query: " . $this->con->error);
         }
 
-        $pre_stmt->bind_param("sisisiiis",$device_category,$section,$make,$serial_no,$purchase_date,$depot,$category,$warranty,$ex_date);
+        $pre_stmt->bind_param("sisisiiisi",$device_category,$section,$make,$serial_no,$purchase_date,$depot,$category,$warranty,$ex_date,$status);
+        $result =$pre_stmt->execute() or die($this->con->error);
+        if($result){
+            return "DEVICE_ADDED";
+        }else{
+            return "error";
+        }
+    }
+
+    public function addNewDevice($device_category,$section,$make,$serial_no,$purchase_date,$depot,$category,$warranty,$ex_date,$status){
+        $pre_stmt = $this->con->prepare("INSERT INTO `device_collection`(`device_category`,`section`, `make`, `serial_no`, `purchase_date`, `depot`, `category`, `warrenty`, `expiery_date`,`status`)
+        VALUES (?,?,?,?,?,?,?,?,?,?)");
+
+        if(!$pre_stmt){
+            die("Error in SQL query: " . $this->con->error);
+        }
+
+        $pre_stmt->bind_param("sisisiiisi",$device_category,$section,$make,$serial_no,$purchase_date,$depot,$category,$warranty,$ex_date,$status);
         $result =$pre_stmt->execute() or die($this->con->error);
         if($result){
             return "DEVICE_ADDED";
@@ -101,9 +118,8 @@ class DBoperation {
 
 
 // $opr = new DBoperation();
-// echo $opr->addDevice("nvr",9,"depot",123,2024-05-15,7,1,7,2025-05-15);
-// echo $opr->addDevice("dvr",9,"depot",123,2024-05-15,7,1,7,2025-05-15);
-// echo $opr->addDevice("hdd",9,"depot",123,2024-05-15,7,1,7,2025-05-15);
+// echo $opr->addNewDevice("nvr",9,"depot",123,2024-05-15,7,1,7,2025-05-15,1);
+
 // echo"<pre>"
 
 // $opr = new DBoperation();

@@ -66,14 +66,16 @@ if(isset($_POST["cam_make"]) && isset($_POST["serial_no"]) && isset($_POST["mega
 
         // Add NVR data
         if(isset($_POST["nvr_make"]) && isset($_POST["nvr_serial_no"]) && isset($_POST["nvr_purchase_date"]) && isset($_POST["nvr_warranty"]) && isset($_POST["nvr_ex_date"])) {
+            
             $device_category = "nvr";
             $make = $_POST["nvr_make"];
             $serial_no = $_POST["nvr_serial_no"];
             $purchase_date = $_POST["nvr_purchase_date"];
             $warranty = $_POST["nvr_warranty"];
             $ex_date = $_POST["nvr_ex_date"];
+            $status = 1;
     
-            $result_nvr = $dbOperation->addDevice($device_category,$section, $make, $serial_no, $purchase_date, $depot, $category, $warranty, $ex_date);
+            $result_nvr = $dbOperation->addDevice($device_category,$section, $make, $serial_no, $purchase_date, $depot, $category, $warranty, $ex_date,$status);
     
             if($result_nvr == "DEVICE_ADDED"){
                 $device_status = true;
@@ -91,8 +93,9 @@ if(isset($_POST["cam_make"]) && isset($_POST["serial_no"]) && isset($_POST["mega
             $dvr_purchase_date = $_POST["dvr_purchase_date"];
             $dvr_warranty = $_POST["dvr_warranty"];
             $dvr_ex_date = $_POST["dvr_ex_date"];
+            $status = 1;
     
-            $result_dvr = $dbOperation->addDevice($device_category,$section, $dvr_make, $dvr_serial_no, $dvr_purchase_date, $depot, $category, $dvr_warranty, $dvr_ex_date);
+            $result_dvr = $dbOperation->addDevice($device_category,$section, $dvr_make, $dvr_serial_no, $dvr_purchase_date, $depot, $category, $dvr_warranty, $dvr_ex_date,$status);
             
             if($result_dvr == "DEVICE_ADDED"){
                 $device_status = true;
@@ -103,14 +106,16 @@ if(isset($_POST["cam_make"]) && isset($_POST["serial_no"]) && isset($_POST["mega
     
         // Add HDD data
         if(isset($_POST["hdd_make"]) && isset($_POST["hdd_serial_no"]) && isset($_POST["hdd_purchase_date"]) && isset($_POST["hdd_warranty"]) && isset($_POST["hdd_ex_date"])) {
+            
             $device_category = "hdd";
             $hdd_make = $_POST["hdd_make"];
             $hdd_serial_no = $_POST["hdd_serial_no"];
             $hdd_purchase_date = $_POST["hdd_purchase_date"];
             $hdd_warranty = $_POST["hdd_warranty"];
             $hdd_ex_date = $_POST["hdd_ex_date"];
+            $status = 1;
     
-            $result_hdd = $dbOperation->addDevice($device_category,$section, $hdd_make, $hdd_serial_no, $hdd_purchase_date, $depot, $category, $hdd_warranty, $hdd_ex_date);
+            $result_hdd = $dbOperation->addDevice($device_category,$section, $hdd_make, $hdd_serial_no, $hdd_purchase_date, $depot, $category, $hdd_warranty, $hdd_ex_date,$status);
             
             if($result_hdd == "DEVICE_ADDED"){
                 $device_status = true;
@@ -177,5 +182,73 @@ if (isset($_POST['category_name'])) {
 }
 
 
+//new nvr
+
+if(isset($_POST["active_n_d"]) && isset($_POST["active_n_c"]) && isset($_POST["combo_section"]) && isset($_POST["nvr_make"]) && isset($_POST["nvr_serial_no"]) && isset($_POST["nvr_purchase_date"]) && isset($_POST["nvr_warranty"]) && isset($_POST["nvr_ex_date"])) {
+
+    $dbOperation = new DBoperation();
+
+    $depot = $_POST["active_n_d"];
+    $category = $_POST["active_n_c"];
+    $section = $_POST["combo_section"];
+    $device_category = "nvr";
+    $make = $_POST["nvr_make"];
+    $serial_no = $_POST["nvr_serial_no"];
+    $purchase_date = $_POST["nvr_purchase_date"];
+    $warranty = $_POST["nvr_warranty"];
+    $ex_date = $_POST["nvr_ex_date"];
+    $status = 1;
+
+    
+    $result = $dbOperation->addNewDevice($device_category,$section,$make,$serial_no,$purchase_date,$depot,$category,$warranty,$ex_date,$status);
+    
+    echo $result;
+    }
+
+// //new dvr
+
+// if(isset($_POST["active_d_d"]) && isset($_POST["active_d_c"]) && isset($_POST["combo_section"]) && isset($_POST["dvr_make"]) && isset($_POST["dvr_serial_no"]) && isset($_POST["dvr_purchase_date"]) && isset($_POST["dvr_warranty"]) && isset($_POST["dvr_ex_date"])) {
+
+//     $dbOperation = new DBoperation();
+
+//     $depot = $_POST["active_d_d"];
+//     $category = $_POST["active_d_c"];
+//     $section = $_POST["combo_section"];
+//     $device_category = "dvr";
+//     $make = $_POST["dvr_make"];
+//     $serial_no = $_POST["dvr_serial_no"];
+//     $purchase_date = $_POST["dvr_purchase_date"];
+//     $warranty = $_POST["dvr_warranty"];
+//     $ex_date = $_POST["dvr_ex_date"];
+//     $status = 1;
+
+    
+//     $result = $dbOperation->addNewDevice($device_category,$section,$make,$serial_no,$purchase_date,$depot,$category,$warranty,$ex_date,$status);
+    
+//     echo $result;
+//     }
+
+// //new hdd
+
+// if(isset($_POST["active_h_d"]) && isset($_POST["active_h_c"]) && isset($_POST["combo_section"]) && isset($_POST["hdd_make"]) && isset($_POST["hdd_serial_no"]) && isset($_POST["hdd_purchase_date"]) && isset($_POST["hdd_warranty"]) && isset($_POST["hdd_ex_date"])) {
+
+//     $dbOperation = new DBoperation();
+
+//     $depot = $_POST["active_h_d"];
+//     $category = $_POST["active_h_c"];
+//     $section = $_POST["combo_section"];
+//     $device_category = "hdd";
+//     $make = $_POST["hdd_make"];
+//     $serial_no = $_POST["hdd_serial_no"];
+//     $purchase_date = $_POST["hdd_purchase_date"];
+//     $warranty = $_POST["hdd_warranty"];
+//     $ex_date = $_POST["hdd_ex_date"];
+//     $status = 1;
+
+    
+//     $result = $dbOperation->addNewDevice($device_category,$section,$make,$serial_no,$purchase_date,$depot,$category,$warranty,$ex_date,$status);
+    
+//     echo $result;
+//     }
 
 ?>

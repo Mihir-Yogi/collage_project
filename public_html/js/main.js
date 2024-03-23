@@ -241,9 +241,15 @@ $(document).ready(function(){
                     if(type == "childData"){
                         $("#camera_c_depot").html(data);
                         $("#combo_c_depot").html(data);
+                        $("#active_n_c").html(data);
+                        $("#active_d_c").html(data);
+                        $("#active_h_c").html(data);
                     }else{
                         $("#camera_d_cat").append(data);
                         $("#combo_d_cat").append(data);
+                        $("#active_n_d").append(data);
+                        $("#active_d_d").append(data);
+                        $("#active_h_d").append(data);
                     }
 
                 }
@@ -267,6 +273,36 @@ $(document).ready(function(){
                 loadData("childData", depot);  
             }else{
                 $("#combo_c_depot").html("");
+            }
+
+        })
+        $("#active_n_d").on("change",function(){
+            var depot = $("#active_n_d").val();
+
+            if(depot != ""){
+                loadData("childData", depot);  
+            }else{
+                $("#active_n_c").html("");
+            }
+
+        })
+        $("#active_d_d").on("change",function(){
+            var depot = $("#active_d_d").val();
+
+            if(depot != ""){
+                loadData("childData", depot);  
+            }else{
+                $("#active_d_c").html("");
+            }
+
+        })
+        $("#active_h_d").on("change",function(){
+            var depot = $("#active_h_d").val();
+
+            if(depot != ""){
+                loadData("childData", depot);  
+            }else{
+                $("#active_h_c").html("");
             }
 
         })
@@ -297,6 +333,7 @@ $(document).ready(function(){
     //combo form
 
     $("#combo_form").on("submit", function(){
+        
 
         var formData = $(this).serialize();
         console.log("Form data:", formData);
@@ -329,6 +366,35 @@ $(document).ready(function(){
         }else{
             $("#combo_d_cat").removeClass("border-danger");
             $("#depot_error").html("");
+            status = true;
+        }
+
+        if(comboC == ""){
+            $("#combo_c_depot").addClass("border-danger");
+            $("#category_error").html("<span class='text-danger'>Please Select Category</span>");
+            status = false
+        }else{
+            $("#combo_c_depot").removeClass("border-danger");
+            $("#category_error").html("");
+            status = true;
+        }
+
+        if(nvrMake == ""){
+            $("#nvr_make").addClass("border-danger");
+            $("#n_make_error").html("<span class='text-danger'>Please Enter Make!</span>");
+            status = false
+        }else{
+            $("#nvr_make").removeClass("border-danger");
+            $("#n_make_error").html("");
+            status = true;
+        }
+        if(dvrMake == ""){
+            $("#dvr_make").addClass("border-danger");
+            $("#d_make_error").html("<span class='text-danger'>Please Enter Make!</span>");
+            status = false
+        }else{
+            $("#dvr_make").removeClass("border-danger");
+            $("#d_make_error").html("");
             status = true;
         }
     if(status){
@@ -488,7 +554,4 @@ $("#hdd_cal").on("click", function() {
     })
 
 
-    // for active - de-active table
-
-    $("")
 })

@@ -55,7 +55,6 @@
     <th scope="col">purchase date</th>
     <th scope="col">expiry date</th>
     <th scope="col">insert date</th>
-    <th scope="col">status</th>
     </tr>
 </thead>
 <tbody>
@@ -126,6 +125,7 @@ function getData($sql){
         // Fetch and display results
         
         while ($row = mysqli_fetch_array($result)) {
+            if($row['status']==1){
             echo '<tr>';
             echo '<td>'.$row['device_category'].'</td>';
             echo '<td>'.$row['section'].'</td>';
@@ -136,17 +136,9 @@ function getData($sql){
             echo '<td>'.$row['purchase_date'].'</td>';
             echo '<td>'.$row['expiery_date'].'</td>';
             echo '<td>'.$row['ins_date'].'</td>';
-            echo '<td>';if ($row['status'] == 1) {
-                    echo '<p>  <a href="active.php?id='.$row['device_id'].'&status=0" class="btn btn-success">Active</a>  </p>';
-                } else {
-                    echo '<p>  <a href="active.php?id='.$row['device_id'].'&status=1" class="btn btn-danger">Deactive</a>  </p>';
-                }
-            '</td>';
-            echo '<td>';if ($row['status'] == 0) {
-                    echo '<p>  <a href="#" class="btn btn-primary replace-btn">Replace</a>   </p>';
-                }'</td>';
+            
             echo ' <tr>';
-        }
+        } }
     } else {
         echo "No records found.";
     }
