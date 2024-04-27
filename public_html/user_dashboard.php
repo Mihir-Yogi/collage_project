@@ -117,6 +117,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="card card-a-m m-2">
+                                <div class="card-body">
+                                    <h5 class="card-title">depot Report</h5>
+                                    <small>Here you can generate Merge report</small>
+                                    <div class="mt-2">
+                                        <a href="pages/demo_report.php" class="btn btn-success">Generate</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
 

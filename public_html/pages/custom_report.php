@@ -1,4 +1,46 @@
 <?php
+
+function getData($con, $sql) {
+    $result = mysqli_query($con, $sql);
+
+    if (!$result) {
+        die('Error: ' . mysqli_error($con));
+    }
+
+    $totalOnDevices = 0;
+    $totalOffDevices = 0;
+    $totalDevices = 0;
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            echo '<tr>';
+            echo '<td>' . $row['city'] . '</td>';
+            echo '<td>' . $row['depot'] . '</td>';
+            echo '<td>' . $row['on_count'] . '</td>';
+            echo '<td>' . $row['off_count'] . '</td>';
+            echo '<td>' . $row['total_device'] . '</td>';
+            echo '<td>' . $row['remarks'] . '</td>';
+            echo '</tr>';
+
+            $totalOnDevices += $row['on_count'];
+            $totalOffDevices += $row['off_count'];
+            $totalDevices += $row['total_device'];
+        }
+    } else {
+        echo "No records found.";
+    }
+
+    echo '<tfoot>';
+    echo '<tr>';
+    echo '<th colspan="2">Group Total</th>';
+    echo '<th>' . $totalOnDevices . '</th>';
+    echo '<th>' . $totalOffDevices . '</th>';
+    echo '<th>' . $totalDevices . '</th>';
+    echo '<th></th>';
+    echo '</tr>';
+    echo '</tfoot>';
+}
+
     session_start();
     
     if (!isset($_SESSION['username'])) {
@@ -105,7 +147,11 @@
                 </div>
                 <div class="col-md-3">
                     <label for="start_date">Date</label>
-                    <input type="date" name="date" class="form-control" id="date">
+                    <input type="date" name="start_date" class="form-control" id="start_date">
+                </div>
+                <div class="col-md-3">
+                    <label for="end_date">End Date</label>
+                    <input type="date" name="end_date" class="form-control" id="end_date">
                 </div>
                 <div class="col-md-12 mt-3">
                     <input type="submit" name="submit_dates" class="btn btn-primary" id="submit_dates" value="Submit">
@@ -132,82 +178,62 @@
 
             $city_row = $_POST['camera_d_cat'];
             $depot_row = $_POST['camera'];
-            $date = $_POST['date'];
+            $date = $_POST['start_date'];
 
-            // Construct the SQL query
-            $selectedCityId = mysqli_real_escape_string($con, $city_row);
-            $selectedDepotId = mysqli_real_escape_string($con, $depot_row);
+            $city = $_POST['camera_d_cat'];
+            $start_date = $_POST['start_date'];
+            $end_date = $_POST['end_date'];
 
+    $selectedCityId = mysqli_real_escape_string($con, $city_row);
+    $selectedDepotId = mysqli_real_escape_string($con, $depot_row);
 
-if (!empty($selectedCityId) && !empty($selectedDepotId)) {
+if (!empty($city) && empty($depot_row)) {
 
-    $cityNameQuery = "SELECT category_name FROM category WHERE pid = $selectedCityId";
-    $cityNameResult = mysqli_query($con, $cityNameQuery);
+    if (empty($start_date) || empty($end_date)) {
+        echo "<p>Please select both Start Date and End Date.</p>";
+    } else {
+        // Construct the SQL query
+        $selectedCityId = mysqli_real_escape_string($con, $city);
 
+        $cityNameQuery = "SELECT category_name FROM category WHERE pid = $selectedCityId";
+        $cityNameResult = mysqli_query($con, $cityNameQuery);
+        if ($cityNameResult === false) {
+            die("Error in city query: " . mysqli_error($con));
+        }
+        $cityNameRow = mysqli_fetch_assoc($cityNameResult);
 
-    if ($cityNameResult === false) {
-        die("Error in city query: " . mysqli_error($con));
+        $city = $cityNameRow['category_name'];
+
+        // Construct and execute the main SQL query
+        $sql = "SELECT 
+                    camera_status.city, 
+                    camera_status.depot,
+                    SUM(camera_status.status = 1) AS on_count,
+                    SUM(camera_status.status = 0) AS off_count,
+                    COUNT(*) AS total_device,
+                    GROUP_CONCAT(camera_status.remark SEPARATOR '<br>') AS remarks
+                FROM camera_status 
+                WHERE 1";
+
+        if (!empty($city)) {
+            $sql .= " AND camera_status.city = '$city'";
+        }
+
+        // Add condition for date range
+        $sql .= " AND camera_status.submit_time BETWEEN '$start_date 00:00:00' AND '$end_date 23:59:59'";
+        $sql .= " GROUP BY camera_status.city, camera_status.depot";
+
+        // Call the getData function with the constructed SQL query
+        getData($con, $sql);
     }
-    $cityNameRow = mysqli_fetch_assoc($cityNameResult);
-    $city = $cityNameRow['category_name'];
-
-    $depotNameQuery = "SELECT child_name FROM child_category WHERE cid = $selectedDepotId";
-    $depotNameResult = mysqli_query($con, $depotNameQuery);
-
-    if ($depotNameResult === false) {
-        die("Error in depot query: " . mysqli_error($con));
-    }
-    $depotNameRow = mysqli_fetch_assoc($depotNameResult);
-    $depot = $depotNameRow['child_name'];
-
-
-    // // Query for ON devices count
-    // $query_result = mysqli_query($con, $query);
-    // $on_count = mysqli_fetch_assoc($query_result)['on_count'];
-
-    // Query for ON devices count
-    $query = "SELECT COUNT(status_id) AS on_count FROM `camera_status` WHERE `city` =  '$city' AND `depot` = '$depot' AND `submit_time` = '$date'  AND `status` = '1' ";
-    $query_result = mysqli_query($con, $query);
-    $on_count = mysqli_fetch_assoc($query_result)['on_count'];
-
-    // Query for OFF devices count
-    $query = "SELECT COUNT(status_id) AS off_count FROM `camera_status` WHERE `city` =  '$city' AND `depot` = '$depot' AND `submit_time` = '$date'  AND `status` = '0' ";
-    $query_result = mysqli_query($con, $query);
-    $off_count = mysqli_fetch_assoc($query_result)['off_count'];
-
-    // Query for total devices count
-    $query = "SELECT COUNT(status_id) AS total_device FROM `camera_status` WHERE `city` =  '$city' AND `depot` = '$depot'  AND `submit_time` = '$date'  ";
-    $query_result = mysqli_query($con, $query);
-    $total_device = mysqli_fetch_assoc($query_result)['total_device'];
-
-
-    $remarksQuery = "SELECT remark FROM `camera_status` WHERE `city` = '$city' AND `depot` = '$depot' AND `submit_time` = '$date'";
-    $remarksResult = mysqli_query($con, $remarksQuery);
-
-    if (!$remarksResult) {
-        die("Error in remarks query: " . mysqli_error($con));
-    }
-
-    $remarks = array();
-    while ($row = mysqli_fetch_assoc($remarksResult)) {
-        $remarks[] = $row['remark'];
-    }
-
-$totalRemarks = implode(", ", $remarks);
-    // Output data based on the retrieved city and selected depot
-    echo "<tr>";
-    echo "<td>$city</td>";
-    echo "<td>$depot</td>";
-    echo "<td>$on_count</td>";
-    echo "<td>$off_count</td>";
-    echo "<td>$total_device</td>";
-    echo "<td>$totalRemarks</td>"; 
-    echo "</tr>";
 
 
 
 } elseif (!empty($selectedDepotId)) {
-    // Only depot is selected, filter data based on depot
+    $megaTotalOnDevices = 0;
+    $megaTotalOffDevices = 0;
+    $megaTotalDevices = 0;
+    
 
     mysqli_data_seek($cityResult, 0); // Reset city result pointer
     while ($cityRow = mysqli_fetch_assoc($cityResult)) {
@@ -258,6 +284,10 @@ $totalRemarks = implode(", ", $remarks);
 
         $totalRemarks = implode(", ", $remarks);
 
+        $megaTotalOnDevices += $on_count;
+        $megaTotalOffDevices += $off_count;
+        $megaTotalDevices += $total_device;
+
         // Output data based on the retrieved city and selected depot
         echo "<tr>";
         echo "<td>$city</td>";
@@ -267,11 +297,23 @@ $totalRemarks = implode(", ", $remarks);
         echo "<td>$total_device</td>";
         echo "<td>$totalRemarks</td>";
         echo "</tr>";
+
+
     }
 }else{
     echo "data not available";
 }
 
+
+    echo '<tfoot>';
+    echo '<tr>';
+    echo '<th colspan="2">Mega Group Total</th>';
+    echo '<th>' . $megaTotalOnDevices . '</th>';
+    echo '<th>' . $megaTotalOffDevices . '</th>';
+    echo '<th>' . $megaTotalDevices . '</th>';
+    echo '<th></th>';
+    echo '</tr>';
+    echo '</tfoot>';
 }
 ?>
         </tbody>
