@@ -34,7 +34,7 @@
 </div>
 
         <!-- Navigation -->
-        <?php include_once("./pages/header.php"); ?>
+        <?php include_once("./pages/user_header.php"); ?>
 
 <div class="container">
         <div class="card mx-auto mt-5" style="width: 30rem;">

@@ -120,13 +120,6 @@ function getData($con, $sql) {
         <div class="dropdown">
             <div class="row">
                 <div class="col-md-3">
-                    <label for="city">Depot</label>
-                    <select name="camera_d_cat" class="form-control" id="camera_d_cat">
-                        <option value="">Select Depot</option>
-                        <!-- options dynamically if needed -->
-                    </select>
-                </div>
-                <div class="col-md-3">
                     <label for="depot">Location</label>
                     <select name="camera" class="form-control" id="camera">
                         <option value="">Select Location</option>
@@ -176,15 +169,15 @@ function getData($con, $sql) {
         <?php
         if (isset($_POST['submit_dates'])) {
 
-            $city_row = $_POST['camera_d_cat'];
+            // $city_row = $_POST['camera_d_cat'];
             $depot_row = $_POST['camera'];
             $date = $_POST['start_date'];
 
-            $city = $_POST['camera_d_cat'];
+            // $city = $_POST['camera_d_cat'];
             $start_date = $_POST['start_date'];
             $end_date = $_POST['end_date'];
 
-    $selectedCityId = mysqli_real_escape_string($con, $city_row);
+    // $selectedCityId = mysqli_real_escape_string($con, $city_row);
     $selectedDepotId = mysqli_real_escape_string($con, $depot_row);
 
 if (!empty($city) && empty($depot_row)) {
@@ -233,11 +226,9 @@ if (!empty($city) && empty($depot_row)) {
     $megaTotalOnDevices = 0;
     $megaTotalOffDevices = 0;
     $megaTotalDevices = 0;
-    
 
     mysqli_data_seek($cityResult, 0); // Reset city result pointer
     while ($cityRow = mysqli_fetch_assoc($cityResult)) {
-        // Fetch city name for the current city row
         $city = $cityRow['category_name'];
 
         $depotNameQuery = "SELECT child_name FROM child_category WHERE cid = $selectedDepotId";
@@ -249,39 +240,37 @@ if (!empty($city) && empty($depot_row)) {
         $depotNameRow = mysqli_fetch_assoc($depotNameResult);
         $depot = $depotNameRow['child_name'];
 
-        // Query for ON devices count based on both city and depot
-        $query = "SELECT COUNT(status_id) AS on_count FROM `camera_status` WHERE `city` = '$city' AND `depot` = '$depot'  AND `submit_time` = '$date'  AND `status` = '1'";
+        // Query for ON devices count based on both city and depot and date range
+        $query = "SELECT COUNT(status_id) AS on_count FROM `camera_status` WHERE `city` = '$city' AND `depot` = '$depot' AND `submit_time` BETWEEN '$start_date' AND '$end_date' AND `status` = '1'";
         $query_result = mysqli_query($con, $query);
         if (!$query_result) {
             die("Error in ON devices query: " . mysqli_error($con));
         }
         $on_count = mysqli_fetch_assoc($query_result)['on_count'];
 
-        // Query for OFF devices count based on both city and depot
-        $query = "SELECT COUNT(status_id) AS off_count FROM `camera_status` WHERE `city` = '$city' AND `depot` = '$depot'  AND `submit_time` = '$date'  AND `status` = '0'";
+        // Query for OFF devices count based on both city and depot and date range
+        $query = "SELECT COUNT(status_id) AS off_count FROM `camera_status` WHERE `city` = '$city' AND `depot` = '$depot' AND `submit_time` BETWEEN '$start_date' AND '$end_date' AND `status` = '0'";
         $query_result = mysqli_query($con, $query);
         if (!$query_result) {
             die("Error in OFF devices query: " . mysqli_error($con));
         }
         $off_count = mysqli_fetch_assoc($query_result)['off_count'];
 
-        // Query for total devices count based on both city and depot
-        $query = "SELECT COUNT(status_id) AS total_device FROM `camera_status` WHERE `city` = '$city' AND `depot` = '$depot'  AND `submit_time` = '$date' ";
+        // Query for total devices count based on both city and depot and date range
+        $query = "SELECT COUNT(status_id) AS total_device FROM `camera_status` WHERE `city` = '$city' AND `depot` = '$depot' AND `submit_time` BETWEEN '$start_date' AND '$end_date'";
         $query_result = mysqli_query($con, $query);
         if (!$query_result) {
             die("Error in total devices query: " . mysqli_error($con));
         }
         $total_device = mysqli_fetch_assoc($query_result)['total_device'];
 
-
-        $remarksQuery = "SELECT remark FROM `camera_status` WHERE `city` = '$city' AND `depot` = '$depot' AND `submit_time` = '$date'";
+        $remarksQuery = "SELECT remark FROM `camera_status` WHERE `city` = '$city' AND `depot` = '$depot' AND `submit_time` BETWEEN '$start_date' AND '$end_date'";
         $remarksResult = mysqli_query($con, $remarksQuery);
 
         $remarks = array();
         while ($row = mysqli_fetch_assoc($remarksResult)) {
             $remarks[] = $row['remark'];
         }
-
         $totalRemarks = implode(", ", $remarks);
 
         $megaTotalOnDevices += $on_count;
@@ -297,13 +286,10 @@ if (!empty($city) && empty($depot_row)) {
         echo "<td>$total_device</td>";
         echo "<td>$totalRemarks</td>";
         echo "</tr>";
-
-
     }
-}else{
-    echo "data not available";
+} else {
+    echo "Data not available";
 }
-
 
     echo '<tfoot>';
     echo '<tr>';
@@ -331,6 +317,22 @@ $(document).ready(function() {
     });
 
 });
+function validateForm() {
+    var location = document.getElementById("camera").value;
+    var startDate = document.getElementById("start_date").value;
+    var endDate = document.getElementById("end_date").value;
+    if (location === "" && (startDate === "" || endDate === "")) {
+        alert("Please select both a location and a date range.");
+        return false;
+    } else if (location === "") {
+        alert("Please select a location.");
+        return false;
+    } else if (startDate === "" || endDate === "") {
+        alert("Please select both Start Date and End Date.");
+        return false;
+    }
+    return true;
+}
 
 </script>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
